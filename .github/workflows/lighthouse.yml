@@ -131,3 +131,16 @@ jobs:
           fi
           git commit -m "chore: update Lighthouse score badges [skip ci]"
           git push origin main
+
+      - name: Create and push badge update branch
+        run: |
+          BRANCH="badge-update-$(date +%s)"
+          git checkout -b $BRANCH
+          git push origin $BRANCH
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: ${{ env.BRANCH }}
+          title: "chore: update Lighthouse score badges"
+          body: "Automated badge update from Lighthouse workflow."
