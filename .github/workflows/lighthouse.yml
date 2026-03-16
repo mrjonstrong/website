@@ -138,6 +138,7 @@ jobs:
         run: |
           BRANCH="badge-update-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}"
           git checkout -b "$BRANCH"
+          git push --set-upstream origin "$BRANCH"
           echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
 
       - name: Create pull request
