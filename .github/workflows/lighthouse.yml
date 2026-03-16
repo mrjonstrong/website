@@ -6,7 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write # needed to commit updated badge SVGs back to main
+  contents: write       # needed to commit updated badge SVGs back to main
+  pull-requests: write # needed to create pull requests via GITHUB_TOKEN
 
 jobs:
   lighthouse:
@@ -130,4 +131,20 @@ jobs:
             exit 0
           fi
           git commit -m "chore: update Lighthouse score badges [skip ci]"
-          git push origin main
+          echo "BADGES_CHANGED=true" >> "$GITHUB_ENV"
+
+      - name: Create and push badge update branch
+        if: env.BADGES_CHANGED == 'true'
+        run: |
+          BRANCH="badge-update-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}"
+          git checkout -b "$BRANCH"
+          git push origin "$BRANCH"
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
+
+      - name: Create pull request
+        if: env.BADGES_CHANGED == 'true'
+        uses: peter-evans/create-pull-request@5b4a9f6a9ad70f1a47f5efd668362d8e24155c87 # v5
+        with:
+          branch: ${{ env.BRANCH }}
+          title: "chore: update Lighthouse score badges"
+          body: "Automated badge update from Lighthouse workflow."
