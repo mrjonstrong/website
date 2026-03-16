@@ -148,6 +148,6 @@ jobs:
         run: |
           gh pr create \
             --head "$BRANCH" \
-            --base "${{ github.ref_name }}" \
+            --base "${{ github.event.repository.default_branch }}" \
             --title "chore: update Lighthouse score badges" \
             --body "Automated badge update from Lighthouse workflow."
