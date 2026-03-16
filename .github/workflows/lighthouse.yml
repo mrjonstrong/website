@@ -134,7 +134,7 @@ jobs:
 
       - name: Create and push badge update branch
         run: |
-          BRANCH="badge-update-$(date +%s)"
+          BRANCH="badge-update-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}"
           git checkout -b "$BRANCH"
           git push origin "$BRANCH"
           echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
