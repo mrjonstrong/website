@@ -133,12 +133,11 @@ jobs:
           git commit -m "chore: update Lighthouse score badges [skip ci]"
           echo "BADGES_CHANGED=true" >> "$GITHUB_ENV"
 
-      - name: Create and push badge update branch
+      - name: Create badge update branch
         if: env.BADGES_CHANGED == 'true'
         run: |
           BRANCH="badge-update-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}"
           git checkout -b "$BRANCH"
-          git push origin "$BRANCH"
           echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
 
       - name: Create pull request
