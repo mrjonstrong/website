@@ -143,8 +143,11 @@ jobs:
 
       - name: Create pull request
         if: env.BADGES_CHANGED == 'true'
-        uses: peter-evans/create-pull-request@5b4a9f6a9ad70f1a47f5efd668362d8e24155c87 # v5
-        with:
-          branch: ${{ env.BRANCH }}
-          title: "chore: update Lighthouse score badges"
-          body: "Automated badge update from Lighthouse workflow."
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --head "$BRANCH" \
+            --base "${{ github.ref_name }}" \
+            --title "chore: update Lighthouse score badges" \
+            --body "Automated badge update from Lighthouse workflow."
