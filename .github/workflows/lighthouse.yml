@@ -6,7 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write # needed to commit updated badge SVGs back to main
+  contents: write       # needed to commit updated badge SVGs back to main
+  pull-requests: write # needed to create pull requests via GITHUB_TOKEN
 
 jobs:
   lighthouse:
