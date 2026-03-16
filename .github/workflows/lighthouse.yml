@@ -139,7 +139,7 @@ jobs:
           echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@5b4a9f6a9ad70f1a47f5efd668362d8e24155c87 # v5
         with:
           branch: ${{ env.BRANCH }}
           title: "chore: update Lighthouse score badges"
