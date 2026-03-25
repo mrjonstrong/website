@@ -83,7 +83,7 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 | `public/_redirects`               | Cloudflare Pages URL redirects                        |
 | `public/images/`                  | Static images                                         |
 | `.github/workflows/`              | CI: check & build, trivy                              |
-| `.github/dependabot.yml`          | Auto-updates: npm + github-actions daily to `develop` |
+| `.github/dependabot.yml`          | Auto-updates: npm + github-actions daily to `develop` (both SHA-pinned) |
 | `scripts/verify-csp-hashes.mjs`   | CSP hash verification (runs in postbuild)             |
 
 ## Security
@@ -92,13 +92,19 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 - **Never** disable security scanning workflows (trivy)
 - Keep dependencies up to date — run `pnpm audit` and `pnpm update --latest` periodically
 - The `pnpm.overrides` section in `package.json` contains security patches for transitive dependencies — do not remove them without verifying security first
+- **GitHub Actions supply chain:** All actions must be pinned to full commit SHAs (not tags or branches). Use `persist-credentials: false` on `actions/checkout` unless the workflow pushes. All workflows include `step-security/harden-runner` in audit mode as the first step. Use `gh api repos/OWNER/REPO/git/ref/tags/TAG --jq '.object.sha'` to resolve tag → SHA.
+- **Linting:** This project uses Biome, not eslint — do not add eslint configs or pre-commit hooks
 
 ## CI Workflows
 
-| Workflow    | Trigger                  | Purpose                                                               |
-| ----------- | ------------------------ | --------------------------------------------------------------------- |
-| `ci.yml`    | push/PR to main, develop | Type check (`astro check`), lint (`biome check`, markdownlint), build |
-| `trivy.yml` | weekly + push/PR         | Filesystem vulnerability scanning                                     |
+| Workflow                | Trigger                           | Purpose                                              |
+| ----------------------- | --------------------------------- | ---------------------------------------------------- |
+| `ci.yml`                | push/PR to main, develop          | Type check, lint (biome + markdownlint), build       |
+| `trivy.yml`             | weekly + push/PR                  | Filesystem vulnerability scanning                    |
+| `dependency-review.yml` | pull_request                      | Flag vulnerable dependencies before merge            |
+| `zizmor.yml`            | PR modifying `.github/workflows/` | Audit workflows for unpinned actions, injection, etc |
+| `lighthouse.yml`        | weekly + manual                   | Lighthouse scores + badge generation                 |
+| `observatory.yml`       | weekly + manual                   | Mozilla Observatory HTTP header check                |
 
 CI runs the same `pnpm check` and `pnpm build` commands used locally. The `postbuild` script runs `pagefind --site dist` for search indexing and `scripts/verify-csp-hashes.mjs` for CSP hash verification.
 
