@@ -72,19 +72,19 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 
 ## Key Files
 
-| File                              | Purpose                                                                 |
-| --------------------------------- | ----------------------------------------------------------------------- |
-| `src/site.config.ts`              | Site title, description, author, URL, nav menu                          |
-| `astro.config.ts`                 | Astro integrations, markdown plugins, env schema                        |
-| `src/content.config.ts`           | Content collection schemas (post, note, tag)                            |
-| `src/components/SocialList.astro` | Footer social links                                                     |
-| `src/pages/about.astro`           | About page                                                              |
-| `src/plugins/`                    | Custom remark/rehype plugins                                            |
-| `public/_redirects`               | Cloudflare Pages URL redirects                                          |
-| `public/images/`                  | Static images                                                           |
-| `.github/workflows/`              | CI: check & build, trivy                                                |
-| `.github/dependabot.yml`          | Auto-updates: npm + github-actions daily to `develop` (both SHA-pinned) |
-| `scripts/verify-csp-hashes.mjs`   | CSP hash verification (runs in postbuild)                               |
+| File                              | Purpose                                                                          |
+| --------------------------------- | -------------------------------------------------------------------------------- |
+| `src/site.config.ts`              | Site title, description, author, URL, nav menu                                   |
+| `astro.config.ts`                 | Astro integrations, markdown plugins, env schema                                 |
+| `src/content.config.ts`           | Content collection schemas (post, note, tag)                                     |
+| `src/components/SocialList.astro` | Footer social links                                                              |
+| `src/pages/about.astro`           | About page                                                                       |
+| `src/plugins/`                    | Custom remark/rehype plugins                                                     |
+| `public/_redirects`               | Cloudflare Pages URL redirects                                                   |
+| `public/images/`                  | Static images                                                                    |
+| `.github/workflows/`              | CI: check & build, trivy                                                         |
+| `.github/dependabot.yml`          | Auto-updates: npm (semver via lockfile) + github-actions (SHA-pinned) to develop |
+| `scripts/verify-csp-hashes.mjs`   | CSP hash verification (runs in postbuild)                                        |
 
 ## Security
 
@@ -92,7 +92,7 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 - **Never** disable security scanning workflows (trivy)
 - Keep dependencies up to date — run `pnpm audit` and `pnpm update --latest` periodically
 - The `pnpm.overrides` section in `package.json` contains security patches for transitive dependencies — do not remove them without verifying security first
-- **GitHub Actions supply chain:** All actions must be pinned to full commit SHAs (not tags or branches). Use `persist-credentials: false` on `actions/checkout` unless the workflow pushes. All workflows include `step-security/harden-runner` in audit mode as the first step. Use `gh api repos/OWNER/REPO/git/ref/tags/TAG --jq '.object.sha'` to resolve tag → SHA.
+- **GitHub Actions supply chain:** All actions must be pinned to full commit SHAs (not tags or branches). Use `persist-credentials: false` on `actions/checkout` unless the workflow pushes. All workflows include `step-security/harden-runner` in audit mode as the first step. To resolve a tag to its commit SHA, use `gh api repos/OWNER/REPO/git/ref/tags/TAG` — if `.object.type` is `"tag"` (annotated), dereference with `gh api repos/OWNER/REPO/git/tags/SHA --jq '.object.sha'`; if `"commit"`, use `.object.sha` directly.
 - **Linting:** This project uses Biome, not eslint — do not add eslint configs or pre-commit hooks
 
 ## CI Workflows
