@@ -72,19 +72,19 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 
 ## Key Files
 
-| File                              | Purpose                                               |
-| --------------------------------- | ----------------------------------------------------- |
-| `src/site.config.ts`              | Site title, description, author, URL, nav menu        |
-| `astro.config.ts`                 | Astro integrations, markdown plugins, env schema      |
-| `src/content.config.ts`           | Content collection schemas (post, note, tag)          |
-| `src/components/SocialList.astro` | Footer social links                                   |
-| `src/pages/about.astro`           | About page                                            |
-| `src/plugins/`                    | Custom remark/rehype plugins                          |
-| `public/_redirects`               | Cloudflare Pages URL redirects                        |
-| `public/images/`                  | Static images                                         |
-| `.github/workflows/`              | CI: check & build, trivy                              |
+| File                              | Purpose                                                                 |
+| --------------------------------- | ----------------------------------------------------------------------- |
+| `src/site.config.ts`              | Site title, description, author, URL, nav menu                          |
+| `astro.config.ts`                 | Astro integrations, markdown plugins, env schema                        |
+| `src/content.config.ts`           | Content collection schemas (post, note, tag)                            |
+| `src/components/SocialList.astro` | Footer social links                                                     |
+| `src/pages/about.astro`           | About page                                                              |
+| `src/plugins/`                    | Custom remark/rehype plugins                                            |
+| `public/_redirects`               | Cloudflare Pages URL redirects                                          |
+| `public/images/`                  | Static images                                                           |
+| `.github/workflows/`              | CI: check & build, trivy                                                |
 | `.github/dependabot.yml`          | Auto-updates: npm + github-actions daily to `develop` (both SHA-pinned) |
-| `scripts/verify-csp-hashes.mjs`   | CSP hash verification (runs in postbuild)             |
+| `scripts/verify-csp-hashes.mjs`   | CSP hash verification (runs in postbuild)                               |
 
 ## Security
 
