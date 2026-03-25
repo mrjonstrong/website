@@ -31,6 +31,7 @@ jobs:
           persist-credentials: false
 
       - name: Run analysis
+        id: scorecard
         uses: ossf/scorecard-action@4eaacf0543bb3f2c246792bd56e8cdeffafb205a # v2.4.3
         with:
           results_file: results.sarif
@@ -39,7 +40,7 @@ jobs:
 
       - name: Upload artifact
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-        if: always()
+        if: always() && steps.scorecard.conclusion != 'skipped'
         with:
           name: SARIF file
           path: results.sarif
@@ -47,6 +48,6 @@ jobs:
 
       - name: Upload to code-scanning
         uses: github/codeql-action/upload-sarif@38697555549f1db7851b81482ff19f1fa5c4fedc # v4.34.1
-        if: always()
+        if: always() && steps.scorecard.conclusion != 'skipped'
         with:
           sarif_file: results.sarif
