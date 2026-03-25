@@ -1,15 +1,12 @@
-name: Audit workflow security
+name: Dependency Review
 
-on:
-  pull_request:
-    paths: [".github/workflows/**"]
+on: [pull_request]
 
 permissions:
   contents: read
 
 jobs:
-  audit:
-    name: zizmor
+  dependency-review:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
@@ -19,10 +16,6 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          persist-credentials: false
 
-      - name: Run zizmor
-        uses: zizmorcore/zizmor-action@71321a20a9ded102f6e9ce5718a2fcec2c4f70d8 # v0.5.2
-        with:
-          min-severity: medium
+      - name: Dependency Review
+        uses: actions/dependency-review-action@2031cfc080254a8a887f58cffee85186f0e49e48 # v4.9.0
