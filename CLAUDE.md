@@ -97,15 +97,15 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 
 ## CI Workflows
 
-| Workflow                | Trigger                                          | Purpose                                              |
-| ----------------------- | ------------------------------------------------ | ---------------------------------------------------- |
+| Workflow                | Trigger                                          | Purpose                                               |
+| ----------------------- | ------------------------------------------------ | ----------------------------------------------------- |
 | `ci.yml`                | push/PR to main, develop                         | Type check, lint (biome + markdownlint), audit, build |
-| `trivy.yml`             | weekly + push/PR to main, develop                | Filesystem vulnerability scanning                    |
-| `dependency-review.yml` | pull_request                                     | Flag vulnerable dependencies before merge            |
-| `zizmor.yml`            | PR modifying `.github/workflows/`                | Audit workflows for unpinned actions, injection, etc |
-| `lighthouse.yml`        | weekly + manual                                  | Lighthouse scores + badge generation                 |
-| `observatory.yml`       | weekly + manual                                  | Mozilla Observatory HTTP header check                |
-| `scorecards.yml`        | weekly + push to main + branch_protection_rule   | OpenSSF Scorecard supply-chain analysis              |
+| `trivy.yml`             | weekly + push/PR to main, develop                | Filesystem vulnerability scanning                     |
+| `dependency-review.yml` | pull_request                                     | Flag vulnerable dependencies before merge             |
+| `zizmor.yml`            | PR modifying `.github/workflows/`                | Audit workflows for unpinned actions, injection, etc  |
+| `lighthouse.yml`        | weekly + manual                                  | Lighthouse scores + badge generation                  |
+| `observatory.yml`       | weekly + manual                                  | Mozilla Observatory HTTP header check                 |
+| `scorecards.yml`        | weekly + push to main + branch_protection_rule   | OpenSSF Scorecard supply-chain analysis               |
 
 CI runs the same `pnpm check` and `pnpm build` commands used locally. The `postbuild` script runs `pagefind --site dist` for search indexing and `scripts/verify-csp-hashes.mjs` for CSP hash verification.
 
