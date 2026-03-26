@@ -143,9 +143,9 @@ jobs:
       - name: Create badge update branch
         if: env.BADGES_CHANGED == 'true'
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}"
+          gh auth setup-git
           BRANCH="badge-update-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}"
           git checkout -b "$BRANCH"
           git push --set-upstream origin "$BRANCH"

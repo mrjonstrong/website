@@ -13,7 +13,7 @@ This post walks through what happened, what I checked, and what I'm doing differ
 
 ## What actually happened
 
-An AI-powered bot called hackerbot-claw found a `pull_request_target` misconfiguration in Trivy's GitHub Actions workflow. This trigger runs with the base repo's secrets but checks out code from forks — a well-documented anti-pattern that has been exploited before in SpotBugs and Nx.
+An AI-powered bot called hackerbot-claw found a `pull_request_target` misconfiguration in Trivy's GitHub Actions workflow. This trigger runs with the base repo's secrets, and when combined with checking out the PR head, it executes code from untrusted forks — a well-documented anti-pattern that has been exploited before in SpotBugs and Nx.
 
 The attackers stole the aqua-bot Personal Access Token — a single credential that could push code, create releases, and modify any repository under the Aqua Security organisation.
 
@@ -31,13 +31,13 @@ One stolen token, five ecosystems.
 
 My first concern was the Homebrew install. The compromised v0.69.4 binary was published to GitHub Releases and Homebrew picked it up automatically. Anyone who ran `brew upgrade trivy` between 19–20 March would have pulled it.
 
-I checked my brew history:
+I checked my installed version:
 
 ```bash
-brew log trivy
+brew info trivy
 ```
 
-The output showed my last update was v0.69.3 on 3 March. I never pulled v0.69.4. Safe by luck.
+The output showed I was on v0.69.3, installed on 3 March. I never pulled v0.69.4. Safe by luck.
 
 I also checked my shell history to see when I last actually ran trivy:
 
@@ -52,7 +52,6 @@ If you're not sure about your version, these are the commands to run:
 ```bash
 trivy --version
 brew info trivy
-brew log trivy
 ls -la $(which trivy)
 ```
 
@@ -60,11 +59,7 @@ You want to be on v0.69.3 or earlier. If you see v0.69.4, v0.69.5, or v0.69.6 �
 
 For network-level IOCs, the C2 domain was `scan.aquasecurtiy[.]org` (note the typosquat — missing 'i' in "security"). There are a few places to check depending on your setup:
 
-If you use NextDNS, check your logs for that domain — it's one of the advantages of running a DNS-level filter, you get a searchable query history. Little Snitch will also show outbound connection attempts if you have it installed. On macOS you can also try the system log:
-
-```bash
-log show --predicate 'eventMessage contains "aquasecurtiy"' --last 7d
-```
+If you use NextDNS, check your logs for that domain — it's one of the advantages of running a DNS-level filter, you get a searchable query history. Little Snitch will also show outbound connection attempts if you have it installed.
 
 Also check your GitHub account for a repository named `tpcp-docs` — that's the fallback exfiltration method if the C2 domain was unreachable.
 
@@ -140,7 +135,7 @@ I was lucky this time — safe by luck on the brew side and safe by design on th
 
 **Monitor your CI/CD egress.** StepSecurity's harden-runner baselines normal network behaviour and alerts on anomalies. This is actually how the Trivy attack was initially detected — anomalous outbound connections from CI runners.
 
-**Hunt down `pull_request_target` and remove it.** This was the initial entry point for the entire attack. It runs with the base repo's secrets but checks out code from untrusted forks — it's a footgun. If you have it in any of your workflows, replace it with `pull_request` or at minimum ensure you never check out the PR head when running with secrets. Search your repos now:
+**Hunt down `pull_request_target` and remove it.** This was the initial entry point for the entire attack. It runs with the base repo's secrets, and when workflows check out the PR head, it executes untrusted code — it's a footgun. If you have it in any of your workflows, replace it with `pull_request` or at minimum ensure you never check out the PR head when running with secrets. Search your repos now:
 
 ```bash
 grep -r "pull_request_target" .github/workflows/
@@ -166,7 +161,7 @@ Until GitHub makes secure defaults the norm rather than the opt-in, the responsi
 - [GitHub Advisory: GHSA-69fq-xp46-6x23](https://github.com/advisories/GHSA-69fq-xp46-6x23)
 - [StepSecurity: trivy-compromise-scanner](https://github.com/step-security/trivy-compromise-scanner)
 - [SANS: When the Security Scanner Became the Weapon](https://www.sans.org/webcasts/when-security-scanner-became-weapon/) — webcast covering the full attack chain
-- [Semgrep: The TeamPCP Credential Infostealer Chain Attack Reaches Python's LiteLLM](https://semgrep.dev/blog/2025/the-teampcp-credential-infostealer-chain-attack-reaches-pythons-litellm/)
+- [Semgrep: The TeamPCP Credential Infostealer Chain Attack Reaches Python's LiteLLM](https://semgrep.dev/blog/2026/the-teampcp-credential-infostealer-chain-attack-reaches-pythons-litellm/)
 - [GitGuardian: Trivy's March Supply Chain Attack Shows Where Secret Exposure Hurts Most](https://blog.gitguardian.com/trivys-march-supply-chain-attack-shows-where-secret-exposure-hurts-most/)
 
 *This post was written with the help of Claude.*
