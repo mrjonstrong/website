@@ -21,6 +21,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Install Google Chrome
         run: |
@@ -30,7 +32,7 @@ jobs:
 
       - name: Run Lighthouse
         run: |
-          npx --yes lighthouse@10.2.0 https://jonathanstrong.org \
+          npx --yes --package=lighthouse@10.2.0 -- lighthouse https://jonathanstrong.org \
             --output=json \
             --output-path=/tmp/lh.json \
             --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
@@ -140,7 +142,10 @@ jobs:
 
       - name: Create badge update branch
         if: env.BADGES_CHANGED == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          gh auth setup-git
           BRANCH="badge-update-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}"
           git checkout -b "$BRANCH"
           git push --set-upstream origin "$BRANCH"
