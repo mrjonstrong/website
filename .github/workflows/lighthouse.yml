@@ -52,10 +52,10 @@ jobs:
           const cats   = report.categories;
 
           const scores = {
-            performance:     cats?.performance?.score     != null ? Math.round(cats?.performance?.score     * 100) : null,
-            accessibility:   cats?.accessibility?.score   != null ? Math.round(cats?.accessibility?.score   * 100) : null,
-            'best-practices':cats?.['best-practices']?.score != null ? Math.round(cats?.['best-practices']?.score * 100) : null,
-            seo:             cats?.seo?.score             != null ? Math.round(cats?.seo?.score             * 100) : null,
+            performance:      cats?.performance?.score      != null ? Math.round(cats?.performance?.score      * 100) : null,
+            accessibility:    cats?.accessibility?.score    != null ? Math.round(cats?.accessibility?.score    * 100) : null,
+            'best-practices': cats?.['best-practices']?.score != null ? Math.round(cats?.['best-practices']?.score * 100) : null,
+            seo:              cats?.seo?.score              != null ? Math.round(cats?.seo?.score              * 100) : null,
           };
 
           fs.mkdirSync('badges', { recursive: true });
