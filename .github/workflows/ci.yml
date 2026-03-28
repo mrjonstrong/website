@@ -5,10 +5,20 @@ on:
     branches:
       - main
       - develop
+    paths-ignore:
+      - ".github/**"
+      - "badges/**"
+      - "*.md"
+      - "LICENSE"
   pull_request:
     branches:
       - main
       - develop
+    paths-ignore:
+      - ".github/**"
+      - "badges/**"
+      - "*.md"
+      - "LICENSE"
 
 permissions:
   contents: read

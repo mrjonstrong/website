@@ -10,10 +10,20 @@ on:
     branches:
       - main
       - develop
+    paths-ignore:
+      - ".github/**"
+      - "badges/**"
+      - "*.md"
+      - "LICENSE"
   pull_request:
     branches:
       - main
       - develop
+    paths-ignore:
+      - ".github/**"
+      - "badges/**"
+      - "*.md"
+      - "LICENSE"
   schedule:
     - cron: "30 13 * * 2"
 
