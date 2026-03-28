@@ -27,7 +27,8 @@ pnpm audit          # Check for known vulnerabilities
 - `develop` — integration branch
 - `copilot/*` — GitHub Copilot feature branches, always branch from `develop`
 - `claude/*` — Claude Code feature branches, always branch from `develop`
-- All PRs require review before merging to `main` or `develop`
+- Feature branches merge into `develop` via PR; `develop` merges into `main` via PR
+- All PRs require review before merging
 
 ## Architecture
 
