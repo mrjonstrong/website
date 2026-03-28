@@ -20,6 +20,7 @@ on:
     paths:
       - "package.json"
       - "pnpm-lock.yaml"
+  workflow_dispatch:
   schedule:
     - cron: "30 13 * * 2"
 
