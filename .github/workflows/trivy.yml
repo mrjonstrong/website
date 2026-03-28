@@ -10,20 +10,32 @@ on:
     branches:
       - main
       - develop
-    paths-ignore:
-      - ".github/**"
-      - "badges/**"
-      - "*.md"
-      - "LICENSE"
+    paths:
+      - "src/**"
+      - "public/**"
+      - "scripts/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "astro.config.ts"
+      - "tailwind.config.ts"
+      - "tsconfig.json"
+      - "biome.json"
+      - ".nvmrc"
   pull_request:
     branches:
       - main
       - develop
-    paths-ignore:
-      - ".github/**"
-      - "badges/**"
-      - "*.md"
-      - "LICENSE"
+    paths:
+      - "src/**"
+      - "public/**"
+      - "scripts/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "astro.config.ts"
+      - "tailwind.config.ts"
+      - "tsconfig.json"
+      - "biome.json"
+      - ".nvmrc"
   schedule:
     - cron: "30 13 * * 2"
 
