@@ -27,6 +27,11 @@ jobs:
           ref: develop
           persist-credentials: false
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          run_install: true
+
       - name: Install Google Chrome
         run: |
           wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -35,7 +40,7 @@ jobs:
 
       - name: Run Lighthouse
         run: |
-          npx --yes --package=lighthouse@13.0.3 -- lighthouse https://jonathanstrong.org \
+          npx lighthouse https://jonathanstrong.org \
             --output=json \
             --output-path=/tmp/lh.json \
             --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
