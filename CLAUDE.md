@@ -99,8 +99,8 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 
 | Workflow                | Trigger                                          | Purpose                                               |
 | ----------------------- | ------------------------------------------------ | ----------------------------------------------------- |
-| `ci.yml`                | push/PR to main, develop                         | Type check, lint (biome + markdownlint), audit, build |
-| `trivy.yml`             | weekly + push/PR to main, develop                | Filesystem vulnerability scanning                     |
+| `ci.yml`                | push/PR to main, develop (website paths only)    | Type check, lint (biome + markdownlint), audit, build |
+| `trivy.yml`             | weekly + push/PR to main, develop (package.json / pnpm-lock.yaml only) | Filesystem vulnerability scanning |
 | `dependency-review.yml` | pull_request                                     | Flag vulnerable dependencies before merge             |
 | `zizmor.yml`            | PR modifying `.github/workflows/`                | Audit workflows for unpinned actions, injection, etc  |
 | `lighthouse.yml`        | weekly + manual                                  | Lighthouse scores + badge generation                  |
