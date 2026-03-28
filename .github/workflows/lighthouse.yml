@@ -52,10 +52,10 @@ jobs:
           const cats   = report.categories;
 
           const scores = {
-            performance:     Math.round(cats.performance.score     * 100),
-            accessibility:   Math.round(cats.accessibility.score   * 100),
-            'best-practices':Math.round(cats['best-practices'].score * 100),
-            seo:             Math.round(cats.seo.score             * 100),
+            performance:     cats.performance.score     != null ? Math.round(cats.performance.score     * 100) : null,
+            accessibility:   cats.accessibility.score   != null ? Math.round(cats.accessibility.score   * 100) : null,
+            'best-practices':cats['best-practices'].score != null ? Math.round(cats['best-practices'].score * 100) : null,
+            seo:             cats.seo.score             != null ? Math.round(cats.seo.score             * 100) : null,
           };
 
           fs.mkdirSync('badges', { recursive: true });
@@ -121,6 +121,13 @@ jobs:
           }
 
           (async () => {
+            const nullCategories = Object.entries(scores).filter(([, s]) => s === null);
+            if (nullCategories.length > 0) {
+              console.error(`Lighthouse returned null scores for: ${nullCategories.map(([k]) => k).join(', ')}`);
+              console.error('This usually means the page failed to load or an audit could not run.');
+              console.error('Badges will NOT be updated to avoid overwriting valid scores with 0%.');
+              process.exit(1);
+            }
             for (const [key, score] of Object.entries(scores)) {
               const label = key.replace(/-/g, '+');
               const url   = `https://img.shields.io/badge/${label}-${score}%25-${color(score)}?style=flat`;
