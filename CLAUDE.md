@@ -27,7 +27,8 @@ pnpm audit          # Check for known vulnerabilities
 - `develop` — integration branch
 - `copilot/*` — GitHub Copilot feature branches, always branch from `develop`
 - `claude/*` — Claude Code feature branches, always branch from `develop`
-- All PRs require review before merging to `main` or `develop`
+- Feature branches merge into `develop` via PR; `develop` merges into `main` via PR
+- All PRs require review before merging
 
 ## Architecture
 
@@ -99,8 +100,8 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 
 | Workflow                | Trigger                                          | Purpose                                               |
 | ----------------------- | ------------------------------------------------ | ----------------------------------------------------- |
-| `ci.yml`                | push/PR to main, develop                         | Type check, lint (biome + markdownlint), audit, build |
-| `trivy.yml`             | weekly + push/PR to main, develop                | Filesystem vulnerability scanning                     |
+| `ci.yml`                | push/PR to main, develop (website paths only) + manual | Type check, lint (biome + markdownlint), audit, build |
+| `trivy.yml`             | weekly + push/PR to main, develop (package.json / pnpm-lock.yaml only) + manual | Filesystem vulnerability scanning |
 | `dependency-review.yml` | pull_request                                     | Flag vulnerable dependencies before merge             |
 | `zizmor.yml`            | PR modifying `.github/workflows/`                | Audit workflows for unpinned actions, injection, etc  |
 | `lighthouse.yml`        | weekly + manual                                  | Lighthouse scores + badge generation                  |
