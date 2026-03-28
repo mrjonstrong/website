@@ -35,7 +35,7 @@ jobs:
 
       - name: Run Lighthouse
         run: |
-          npx --yes --package=lighthouse@10.2.0 -- lighthouse https://jonathanstrong.org \
+          npx --yes --package=lighthouse@13.0.3 -- lighthouse https://jonathanstrong.org \
             --output=json \
             --output-path=/tmp/lh.json \
             --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
