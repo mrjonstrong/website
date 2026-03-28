@@ -110,6 +110,14 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 
 CI runs the same `pnpm check` and `pnpm build` commands used locally. The `postbuild` script runs `pagefind --site dist` for search indexing and `scripts/verify-csp-hashes.mjs` for CSP hash verification.
 
+## Workflow
+
+After completing any task:
+
+1. **Check CLAUDE.md and README.md** — review both files and update them if the changes affect documented behaviour, commands, architecture, workflows, or key files. Only update if something is genuinely out of date or missing; do not add noise.
+2. **PR review** — after pushing a feature branch, perform an independent review of the diff before considering the task done. Check for correctness, security issues, style consistency, and anything that would warrant a review comment.
+3. **PRs always target `develop`** — when creating a pull request for any `claude/*` (or `copilot/*`) feature branch, always set the base to `develop`, never `main`.
+
 ## Cloudflare Pages Setup
 
 - **Repository:** `mrjonstrong/website`
