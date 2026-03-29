@@ -106,7 +106,6 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 | `zizmor.yml`            | PR modifying `.github/workflows/`                                                | Audit workflows for unpinned actions, injection, etc  |
 | `lighthouse.yml`        | weekly + manual                                                                  | Lighthouse scores + badge generation                  |
 | `observatory.yml`       | weekly + manual                                                                  | Mozilla Observatory HTTP header check                 |
-| `scorecards.yml`        | weekly + push to main + branch_protection_rule                                   | OpenSSF Scorecard supply-chain analysis               |
 
 CI runs the same `pnpm check` and `pnpm build` commands used locally. The `postbuild` script runs `pagefind --site dist` for search indexing and `scripts/verify-csp-hashes.mjs` for CSP hash verification.
 
