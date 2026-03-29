@@ -115,7 +115,7 @@ CI runs the same `pnpm check` and `pnpm build` commands used locally. The `postb
 After completing any task:
 
 1. **Check CLAUDE.md and README.md** — review both files and update them if the changes affect documented behaviour, commands, architecture, workflows, or key files. Only update if something is genuinely out of date or missing; do not add noise.
-2. **Multi-agent PR review** — when a PR is ready, review the diff and select the appropriate agents based on what changed, then address any findings:
+2. **Multi-agent PR review** — when a PR is ready, review the diff and select the appropriate agents based on what changed, then run those agents and address any findings:
    - **Security agent** — run when changing workflows, dependencies, scripts, or anything touching auth/permissions/network
    - **Correctness agent** — run when changing logic, configuration, or anything with non-obvious behaviour
    - **Style agent** — run when changing code or docs that others will read/maintain
