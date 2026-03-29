@@ -41,10 +41,12 @@ jobs:
           egress-policy: block
           allowed-endpoints: >
             api.github.com:443
+            get.trivy.dev:443
             ghcr.io:443
             github.com:443
             objects.githubusercontent.com:443
             pkg-containers.githubusercontent.com:443
+            release-assets.githubusercontent.com:443
             uploads.github.com:443
 
       - name: Checkout code
