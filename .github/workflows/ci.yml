@@ -52,10 +52,9 @@ jobs:
           allowed-endpoints: >
             api.github.com:443
             github.com:443
-            nodejs.org:443
-            objects.githubusercontent.com:443
             registry.npmjs.org:443
             release-assets.githubusercontent.com:443
+            telemetry.astro.build:443
 
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
