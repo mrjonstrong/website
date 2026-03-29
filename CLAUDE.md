@@ -107,6 +107,7 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 | `lighthouse.yml`        | weekly + manual                                                                  | Lighthouse scores + badge generation                  |
 | `observatory.yml`       | weekly + manual                                                                  | Mozilla Observatory HTTP header check                 |
 
+The previous OpenSSF Scorecards workflow (`scorecards.yml`) was intentionally removed. Its supply-chain and security coverage is now provided by a combination of `trivy.yml` (filesystem and dependency vulnerability scanning), `dependency-review.yml` (GitHub dependency review on PRs), `zizmor.yml` (workflow security checks), and other GitHub-native security tooling (e.g., Dependabot alerts).
 CI runs the same `pnpm check` and `pnpm build` commands used locally. The `postbuild` script runs `pagefind --site dist` for search indexing and `scripts/verify-csp-hashes.mjs` for CSP hash verification.
 
 ## Workflow
