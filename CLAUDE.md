@@ -115,10 +115,11 @@ CI runs the same `pnpm check` and `pnpm build` commands used locally. The `postb
 After completing any task:
 
 1. **Check CLAUDE.md and README.md** — review both files and update them if the changes affect documented behaviour, commands, architecture, workflows, or key files. Only update if something is genuinely out of date or missing; do not add noise.
-2. **Multi-agent PR review** — when a PR is ready, run three parallel review agents on the diff before considering the task done, then address any findings:
-   - **Security agent**: supply chain risk, injection, unsafe operations, permissions model
-   - **Correctness agent**: logic, edge cases, whether the change actually solves the problem
-   - **Style agent**: readability, duplication, naming, consistency with the rest of the codebase
+2. **Multi-agent PR review** — when a PR is ready, review the diff and select the appropriate agents based on what changed, then address any findings:
+   - **Security agent** — run when changing workflows, dependencies, scripts, or anything touching auth/permissions/network
+   - **Correctness agent** — run when changing logic, configuration, or anything with non-obvious behaviour
+   - **Style agent** — run when changing code or docs that others will read/maintain
+   - Content-only changes (e.g. blog posts, pure copy edits) may need no agents at all
 3. **PRs always target `develop`** — when creating a pull request for any `claude/*` (or `copilot/*`) feature branch, always set the base to `develop`, never `main`.
 4. **Markdown table alignment** — markdownlint enforces aligned pipe style. After editing any markdown table, verify all rows have pipes at the same column positions. Use this one-liner to check: `python3 -c "lines=open('FILE.md').readlines(); [print(f'Line {i+1}: {[j+1 for j,c in enumerate(l) if c==\"|\"]}'  ) for i,l in enumerate(lines)]"`
 
