@@ -93,7 +93,7 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 - **Never** disable security scanning workflows (trivy)
 - Keep dependencies up to date — run `pnpm audit` and `pnpm update --latest` periodically
 - The `pnpm.overrides` section in `package.json` contains security patches for transitive dependencies — do not remove them without verifying security first
-- **GitHub Actions supply chain:** All actions must be pinned to full commit SHAs (not tags or branches). Use `persist-credentials: false` on `actions/checkout` unless the workflow pushes. All workflows include `step-security/harden-runner` in audit mode as the first step. To resolve a tag to its commit SHA, use `gh api repos/OWNER/REPO/git/ref/tags/TAG` — if `.object.type` is `"tag"` (annotated), dereference with `gh api repos/OWNER/REPO/git/tags/SHA --jq '.object.sha'`; if `"commit"`, use `.object.sha` directly.
+- **GitHub Actions supply chain:** All actions must be pinned to full commit SHAs (not tags or branches). Use `persist-credentials: false` on `actions/checkout` unless the workflow pushes. All workflows include `step-security/harden-runner` in block mode (with per-workflow domain allowlists) as the first step. To resolve a tag to its commit SHA, use `gh api repos/OWNER/REPO/git/ref/tags/TAG` — if `.object.type` is `"tag"` (annotated), dereference with `gh api repos/OWNER/REPO/git/tags/SHA --jq '.object.sha'`; if `"commit"`, use `.object.sha` directly.
 - **Linting:** This project uses Biome, not eslint — do not add eslint configs or pre-commit hooks
 
 ## CI Workflows

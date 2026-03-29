@@ -19,7 +19,22 @@ jobs:
       - name: Harden Runner
         uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
         with:
-          egress-policy: audit
+          egress-policy: block
+          allowed-endpoints: >
+            a.nel.cloudflare.com:443
+            accounts.google.com:443
+            android.clients.google.com:443
+            api.github.com:443
+            clients2.google.com:80
+            content-autofill.googleapis.com:443
+            dl.google.com:443
+            github.com:443
+            img.shields.io:443
+            jonathanstrong.org:443
+            mtalk.google.com:5228
+            registry.npmjs.org:443
+            safebrowsingohttpgateway.googleapis.com:443
+            www.google.com:443
 
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
