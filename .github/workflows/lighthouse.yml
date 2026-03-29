@@ -29,8 +29,15 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+
+      - name: Setup Node
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
-          run_install: true
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Install Google Chrome
         run: |
@@ -40,7 +47,7 @@ jobs:
 
       - name: Run Lighthouse
         run: |
-          npx lighthouse https://jonathanstrong.org \
+          pnpm exec lighthouse https://jonathanstrong.org \
             --output=json \
             --output-path=/tmp/lh.json \
             --chrome-flags="--headless=new --no-sandbox --disable-dev-shm-usage" \
