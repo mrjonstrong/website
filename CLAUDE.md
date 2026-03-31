@@ -32,7 +32,7 @@ pnpm audit          # Check for known vulnerabilities
 
 ## Architecture
 
-- **Framework:** Astro 5 (static output)
+- **Framework:** Astro 6 (static output)
 - **Theme:** astro-theme-cactus (customized)
 - **Styling:** Tailwind CSS v4
 - **Package manager:** pnpm 10.29.3 (do not use npm or yarn)
