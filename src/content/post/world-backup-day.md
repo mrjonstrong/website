@@ -2,7 +2,7 @@
 title: "World Backup Day: Do You Know Where Your Data Lives?"
 description: "A practical nudge to think about what data you actually care about, where it's stored, and how to add one more layer of protection with privacy-focused backups."
 publishDate: "2026-03-31"
-tags: ["backups", "privacy", "security", "world-backup-day"]
+tags: ["backups", "privacy", "cyber-security", "world-backup-day"]
 ---
 
 It's [World Backup Day](https://www.worldbackupday.com/en), which means it's a good time to ask yourself two questions: what data do I actually care about, and where is it right now?
