@@ -1,122 +1,121 @@
 ---
-title: "Assessing Post-Quantum Cryptography Readiness"
-description: "A practical guide to evaluating your exposure to quantum threats and planning the migration to post-quantum cryptographic standards."
+title: "Is This Site Post-Quantum Ready?"
+description: "A hands-on PQC readiness assessment of this blog — auditing TLS, CSP hashing, CI/CD supply chain, and every cryptographic dependency."
 publishDate: "2026-04-07"
 tags: ["cyber-security", "cryptography", "pqc"]
 ---
 
-Quantum computers capable of breaking RSA and elliptic-curve cryptography don't exist yet. But the threat they pose is already real — and if you handle anything sensitive, waiting for Q-Day is too late to start preparing.
+I write about security, so I should practise it. With NIST's post-quantum cryptography (PQC) standards now published and Cloudflare, Chrome, and OpenSSH already shipping hybrid PQC by default, I decided to run a proper readiness assessment against this site — the infrastructure, the build pipeline, and every cryptographic touchpoint in between.
 
-This post covers what post-quantum cryptography (PQC) is, why the timeline matters now, and how to run a practical readiness assessment for your systems.
+Here's what I found.
 
-## Why this matters today
+## The cryptographic inventory
 
-The core problem is "harvest now, decrypt later" (HNDL). Adversaries — particularly state-level actors — are already collecting encrypted traffic with the expectation that future quantum computers will decrypt it. If the data you're protecting today still has value in 10–15 years (medical records, legal documents, trade secrets, national security), it's already at risk.
+Before you can assess PQC readiness, you need to know where cryptography lives. For a static Astro site on Cloudflare Pages with GitHub Actions CI, the surface is smaller than a typical web application, but it's not zero.
 
-NIST estimates that a cryptographically relevant quantum computer (CRQC) could arrive between the early 2030s and mid-2040s. The US Government set a hard deadline: federal agencies must migrate to PQC by 2035. CNSA 2.0 timelines are even more aggressive for national security systems, with some requirements starting in 2025.
+### TLS (visitor connections)
 
-The migration itself will take years. Cryptographic transitions always do — we're still finding SHA-1 and 3DES in production systems decades after they were deprecated. Starting the assessment now is not premature; it's overdue.
+This site is served through Cloudflare, which has negotiated hybrid PQC key exchange (`X25519MLKEM768`) for TLS by default since late 2024. Any visitor with a modern browser — Chrome 124+, Firefox 128+, Edge 124+ — is already getting post-quantum key agreement on every connection to this site.
 
-## The new standards
-
-In August 2024, NIST published three post-quantum standards. A fourth followed in March 2025:
-
-- **ML-KEM** (FIPS 203) — key encapsulation based on Module-Lattice (formerly CRYSTALS-Kyber). This is the primary replacement for key exchange in TLS, VPNs, and anywhere you establish shared secrets.
-- **ML-DSA** (FIPS 204) — digital signatures based on Module-Lattice (formerly CRYSTALS-Dilithium). The general-purpose replacement for RSA and ECDSA signatures.
-- **SLH-DSA** (FIPS 205) — stateless hash-based signatures (formerly SPHINCS+). A conservative backup that relies only on hash function security — useful where you want defence in depth against lattice breakthroughs.
-- **HBS** (FIPS 208) — stateful hash-based signatures (LMS and XMSS), published March 2025. Suitable for firmware signing and other use cases where state management is feasible.
-
-For most organisations, ML-KEM and ML-DSA are the two that matter immediately.
-
-## Running a PQC readiness assessment
-
-A readiness assessment doesn't require quantum expertise. It's fundamentally a cryptographic inventory exercise with a migration lens. Here's how to approach it.
-
-### 1. Build a cryptographic inventory
-
-You can't migrate what you can't find. Catalogue every place your systems use cryptography:
-
-- **TLS connections** — what cipher suites are negotiated? Check web servers, APIs, databases, message brokers, service-to-service communication.
-- **Certificates** — what signature algorithms are your CA chains using? RSA-2048? ECDSA P-256?
-- **VPN tunnels** — what key exchange and authentication algorithms are configured?
-- **Code signing** — what algorithms sign your binaries, containers, packages?
-- **Data at rest** — what encryption protects stored data? AES-256 is quantum-resistant; the key wrapping and key exchange around it probably isn't.
-- **SSH keys** — what key types are in your `~/.ssh/` and `authorized_keys`?
-- **Protocols and libraries** — what cryptographic libraries do your applications link against? What versions?
-
-Tools that can help: `openssl s_client` for TLS inspection, `ssh -Q key` for supported SSH key types, `nmap --script ssl-enum-ciphers` for server cipher enumeration, and commercial tools like Venafi or Keyfactor for certificate inventory at scale.
-
-### 2. Classify data by sensitivity lifetime
-
-Not everything needs to migrate at the same pace. Prioritise based on how long the data needs to stay confidential:
-
-- **High priority** — data with long confidentiality requirements (health records, legal, financial, IP, government). These are HNDL targets today.
-- **Medium priority** — data that's sensitive now but not in a decade (session tokens, short-lived credentials). Still needs migration, but less urgently.
-- **Lower priority** — integrity-only use cases (code signing, authentication). These only become vulnerable once a CRQC actually exists, since the attack requires real-time computation.
-
-### 3. Assess your supply chain
-
-Your own code is only part of the picture:
-
-- **Cloud providers** — are your providers offering PQC options? AWS KMS supports ML-KEM for key exchange. Cloudflare has been running PQC key agreement in TLS since late 2024. Google Cloud offers PQC in Cloud KMS.
-- **TLS libraries** — OpenSSL 3.5 (April 2025) added ML-KEM and ML-DSA support. BoringSSL and AWS-LC have had hybrid support for longer. Check what your applications actually link against.
-- **Certificate authorities** — your CA will need to issue PQC or hybrid certificates eventually. Check their roadmap.
-- **Hardware** — HSMs, smart cards, and embedded devices may need firmware updates or replacement to support PQC algorithms.
-
-### 4. Test hybrid deployments
-
-The migration path is not a hard cutover. The industry consensus is hybrid mode: combining a classical algorithm with a post-quantum algorithm so that security is maintained even if one of them breaks.
-
-For TLS, this is already happening. Chrome and Firefox negotiate `X25519Kyber768` (now `X25519MLKEM768`) hybrid key exchange by default. If you run web servers, check whether your TLS stack supports these:
+I didn't have to configure anything. Cloudflare enables this at the edge automatically. You can verify it yourself:
 
 ```bash
-# Check if a server supports hybrid PQC key exchange
-openssl s_client -connect example.com:443 -groups X25519MLKEM768
+openssl s_client -connect jonathanstrong.org:443 -groups X25519MLKEM768
 ```
 
-For SSH, OpenSSH 9.x added hybrid key exchange using `sntrup761x25519-sha512@openssh.com`. If you're running a recent version, you may already be using PQC for key exchange without realising it:
+**Verdict: PQC-ready.** Hybrid key exchange is active. Classical fallback (X25519) is available for older clients.
 
-```bash
-# Check your SSH connection's key exchange algorithm
-ssh -v yourserver 2>&1 | grep "kex:"
+### CSP script hashes (SHA-256)
+
+The site's Content Security Policy in `public/_headers` uses SHA-256 hashes to allowlist inline scripts:
+
+```text
+script-src 'self' 'sha256-OdbZQZXbUBJu+W/...' ...
 ```
 
-### 5. Identify blockers
+A post-build verification script (`scripts/verify-csp-hashes.mjs`) recomputes these hashes using Node's `createHash("sha256")` and fails the build on mismatch.
 
-Common issues that stall PQC migration:
+SHA-256 is **quantum-resistant**. Grover's algorithm reduces brute-force search from 2²⁵⁶ to 2¹²⁸ operations, which is still computationally infeasible. NIST considers SHA-256 safe for the foreseeable quantum future, and CNSA 2.0 approves SHA-384 and SHA-512 but does not deprecate SHA-256 for hashing.
 
-- **Larger key and signature sizes** — ML-KEM public keys are ~1,200 bytes vs 32 bytes for X25519. ML-DSA signatures are ~2,400–4,600 bytes vs 64 bytes for Ed25519. This affects constrained environments, certificate chains, and protocols with tight size limits.
-- **Performance** — ML-KEM is actually faster than ECDH for key exchange. But ML-DSA signature verification is slower than Ed25519, and certificate chain validation multiplies the cost.
-- **Protocol limitations** — DNSSEC, some IoT protocols, and older embedded systems may struggle with PQC key/signature sizes.
-- **Compliance and certification** — regulated industries need validated implementations. NIST's CMVP is working on validating PQC modules, but the queue takes time.
+**Verdict: PQC-ready.** No changes needed.
 
-### 6. Write a migration roadmap
+### HSTS and transport security
 
-Based on your inventory and priorities:
+The `_headers` file enforces:
 
-1. Enable hybrid PQC key exchange in TLS where your stack supports it (this is often just a configuration change).
-2. Rotate SSH keys to use hybrid or PQC-capable algorithms.
-3. Engage your cloud and CA providers on their PQC timelines.
-4. Plan hardware refresh cycles to include PQC support requirements.
-5. Update procurement language to require PQC capability in new systems.
-6. Set target dates aligned with CNSA 2.0 or your industry's regulatory guidance.
+```text
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+```
 
-## What I'm doing
+HSTS itself has no cryptographic algorithm dependency — it instructs browsers to use HTTPS, and the underlying TLS negotiation handles algorithm selection. Since Cloudflare's TLS is already hybrid-PQC, HSTS is fine as-is.
 
-For this site specifically, the exposure is minimal — it's a static site served over Cloudflare, which already negotiates hybrid PQC key exchange for TLS by default. Visitors with modern browsers are already getting post-quantum key agreement without any action on my part.
+**Verdict: PQC-ready.**
 
-But a personal site is not where the real work is. For professional environments, I'm advising teams to:
+### GitHub Actions supply chain
 
-- Start the cryptographic inventory now, even if migration is years away. The inventory is the hardest part and it's never too early.
-- Enable hybrid TLS key exchange on anything internet-facing. It's low risk and high value against HNDL.
-- Watch OpenSSL 3.5 adoption and plan library upgrades.
-- Treat PQC migration as a multi-year programme, not a single project. Get it on the roadmap and into procurement requirements.
+All workflows pin actions to full commit SHAs rather than mutable tags. This is a supply chain integrity measure, not a PQC concern directly — but the hashing matters.
 
-The quantum threat is not a sudden cliff — it's a slow tide. The organisations that start assessing now will migrate smoothly. The ones that wait will be scrambling to replace cryptographic foundations under pressure, the same way too many scrambled with SHA-1 deprecation years after the writing was on the wall.
+Git uses SHA-1 for commit hashes. SHA-1 is **not quantum-resistant** (Grover's algorithm reduces it to 2⁸⁰, and classical collision attacks already exist). However:
 
-## Further reading
+- GitHub is migrating to SHA-256 for Git object hashing.
+- The threat model for commit SHA pinning is collision attacks on the commit hash, which are already mitigated by GitHub's SHA-1 collision detection (shipped since the SHAttered attack in 2017).
+- Quantum attacks on SHA-1 preimage resistance would require a fault-tolerant quantum computer that doesn't exist yet, and by the time it does, the Git SHA-256 migration should be complete.
 
-- [NIST Post-Quantum Cryptography Standards](https://csrc.nist.gov/projects/post-quantum-cryptography) — the primary source for FIPS 203, 204, 205, and 208.
-- [CISA Post-Quantum Cryptography Initiative](https://www.cisa.gov/quantum) — US government guidance and migration resources.
-- [Cloudflare: Post-Quantum Key Agreement](https://blog.cloudflare.com/post-quantum-to-origins/) — how Cloudflare deploys PQC in production.
-- [CNSA 2.0 Algorithm Guidance](https://media.defense.gov/2022/Sep/07/2003071834/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF) — NSA's timeline for national security systems.
+The `step-security/harden-runner` in all workflows monitors egress and blocks unexpected network calls, adding defence-in-depth regardless of hash algorithm.
+
+**Verdict: acceptable risk.** SHA-1 in Git commit pinning is a known limitation of the Git ecosystem, not something I can fix at the repository level. The SHA-256 migration is underway upstream.
+
+### Trivy and dependency scanning
+
+The `trivy.yml` workflow scans for known vulnerabilities and uploads SARIF results. Trivy's own integrity was a concern after the [March 2026 supply chain compromise](/posts/trivy-compromise), but the action is SHA-pinned and the binary integrity is verified.
+
+No PQC-specific dependency scanning exists yet in any major tool. This is a gap across the industry, not specific to this site.
+
+**Verdict: no PQC-specific action available.** Worth revisiting when tools add quantum-readiness checks.
+
+### Webmention API calls
+
+The site makes authenticated API calls to `webmention.io` using a server-side API key. The key is transmitted over HTTPS (TLS to webmention.io). Whether that connection uses hybrid PQC depends on webmention.io's server configuration, which I don't control.
+
+The API key itself is a bearer token — a symmetric secret. Symmetric cryptography (AES, HMAC) is quantum-resistant with sufficient key length. The risk here is HNDL interception of the TLS session carrying the token, but since the token can be rotated and has no long-term confidentiality value, this is low risk.
+
+**Verdict: low risk.** The token is short-lived and rotatable. Upstream TLS PQC support is outside my control.
+
+### Node.js crypto usage
+
+The build pipeline uses `createHash("sha256")` for CSP verification and `crypto.randomUUID()` for generating component IDs. Both are fine:
+
+- SHA-256: quantum-resistant (as discussed above).
+- `randomUUID()`: uses a CSPRNG. Quantum computers don't break random number generation.
+
+**Verdict: PQC-ready.**
+
+### No subresource integrity (SRI)
+
+The site doesn't load external scripts, so SRI attributes aren't present. This is actually the most PQC-resilient approach — no external resources means no integrity hashes to worry about, and no third-party TLS connections to audit.
+
+**Verdict: not applicable (and that's ideal).**
+
+## Summary
+
+| Component                  | Algorithm        | Quantum-safe? | Action needed        |
+| -------------------------- | ---------------- | ------------- | -------------------- |
+| TLS key exchange           | X25519MLKEM768   | Yes (hybrid)  | None                 |
+| CSP script hashes          | SHA-256          | Yes           | None                 |
+| HSTS                       | N/A              | Yes           | None                 |
+| Git commit pinning         | SHA-1            | No            | Awaiting Git SHA-256 |
+| Trivy / dependency scans   | N/A              | N/A           | Monitor tooling      |
+| Webmention API (TLS)       | Upstream-depends | Unknown       | Low priority         |
+| Build-time hashing         | SHA-256          | Yes           | None                 |
+| Random ID generation       | CSPRNG           | Yes           | None                 |
+| External script loading    | None             | N/A           | None (no externals)  |
+
+## What this means
+
+This site is in a strong position. The two most important cryptographic operations — TLS to visitors and integrity hashing in the build — are already quantum-resistant without any changes on my part.
+
+The only area where a quantum-vulnerable algorithm is in use (SHA-1 in Git) is an ecosystem-wide limitation that GitHub is actively addressing. There's nothing to do at the repository level except keep actions SHA-pinned (which is already the practice) and move to SHA-256 commit hashes when Git and GitHub complete the migration.
+
+For a static site with no server-side computation, no database, no user authentication, and no long-lived secrets, the attack surface for quantum threats is genuinely minimal. The real PQC work — migrating key exchange, certificates, and signatures — sits with Cloudflare and GitHub, both of whom are ahead of most of the industry.
+
+If you're assessing your own systems, the approach is the same: inventory every cryptographic touchpoint, check whether each algorithm is quantum-resistant, and focus your energy on the gaps. For most people, the biggest win is confirming that their TLS provider already supports hybrid PQC key exchange — and in 2026, most major providers do.
