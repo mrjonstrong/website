@@ -1,5 +1,5 @@
 /**
- * Post-build script that verifies the inline script SHA-384 hashes in
+ * Post-build script that verifies the inline script SHA-512 hashes in
  * public/_headers match what Astro actually produced in dist/.
  *
  * Exits with code 1 (failing the build) if there is a mismatch.
@@ -33,7 +33,7 @@ function findHtmlFiles(dir) {
 }
 
 /**
- * Return the set of SHA-256 hashes (base64) for every inline <script>
+ * Return the set of SHA-512 hashes (base64) for every inline <script>
  * in the given HTML string that is subject to CSP script-src enforcement.
  * This includes:
  *   - Inline JavaScript scripts with no type attribute (defaults to JS)
@@ -183,7 +183,7 @@ if (!cspValue) {
 }
 
 /**
- * Extract SHA-256 hashes from script-src related directives, falling back
+ * Extract SHA-512 hashes from script-src related directives, falling back
  * to default-src when no script-src* directives are present.
  *
  * CSP directives are semicolon-separated. This function parses the CSP
@@ -193,14 +193,14 @@ if (!cspValue) {
  * default-src directive, which governs scripts in that case.
  *
  * @param {string} cspValue - The full Content-Security-Policy header value
- * @returns {Set<string>} Set of SHA-256 hashes relevant for scripts
+ * @returns {Set<string>} Set of SHA-512 hashes relevant for scripts
  */
 function extractScriptSrcHashes(cspValue) {
 	const hashes = new Set();
 	// Split CSP into directives (semicolon-separated)
 	const directives = cspValue.split(";").map((d) => d.trim());
 
-	// Helper regex to extract SHA-256 hashes from a directive value
+	// Helper regex to extract SHA-512 hashes from a directive value
 	const hashRe = /["'](sha512-[A-Za-z0-9+/]+=*)["']/g;
 
 	let hasScriptDirective = false;
