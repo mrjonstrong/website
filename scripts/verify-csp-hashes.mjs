@@ -1,5 +1,5 @@
 /**
- * Post-build script that verifies the inline script SHA-256 hashes in
+ * Post-build script that verifies the inline script SHA-384 hashes in
  * public/_headers match what Astro actually produced in dist/.
  *
  * Exits with code 1 (failing the build) if there is a mismatch.
@@ -77,8 +77,8 @@ function extractInlineScriptHashes(html) {
 		const body = script.textContent || "";
 		if (!body.trim()) continue;
 
-		const hash = createHash("sha256").update(body).digest("base64");
-		hashes.add(`sha256-${hash}`);
+		const hash = createHash("sha512").update(body).digest("base64");
+		hashes.add(`sha512-${hash}`);
 	}
 	return hashes;
 }
@@ -116,7 +116,7 @@ if (buildHashes.size === 0) {
 	);
 }
 /* ------------------------------------------------------------------ */
-/*  2. Extract sha256-* hashes from the CSP in public/_headers        */
+/*  2. Extract sha512-* hashes from the CSP in public/_headers        */
 /* ------------------------------------------------------------------ */
 
 let headersContent;
@@ -201,7 +201,7 @@ function extractScriptSrcHashes(cspValue) {
 	const directives = cspValue.split(";").map((d) => d.trim());
 
 	// Helper regex to extract SHA-256 hashes from a directive value
-	const hashRe = /["'](sha256-[A-Za-z0-9+/]+=*)["']/g;
+	const hashRe = /["'](sha512-[A-Za-z0-9+/]+=*)["']/g;
 
 	let hasScriptDirective = false;
 
@@ -266,7 +266,7 @@ const cspHashes = extractScriptSrcHashes(cspValue);
 /* ------------------------------------------------------------------ */
 
 /**
- * Parse "# edge-injected-hash: sha256-..." comments from the _headers file.
+ * Parse "# edge-injected-hash: sha512-..." comments from the _headers file.
  * These hashes belong to scripts that Cloudflare (or another CDN) injects at
  * the edge — they are intentionally absent from the static build output and
  * must be excluded from the "hash in CSP but not in build" error.
@@ -274,7 +274,7 @@ const cspHashes = extractScriptSrcHashes(cspValue);
 function extractEdgeInjectedHashes(content) {
 	const hashes = new Set();
 	for (const line of content.split(/\r?\n/)) {
-		const match = line.match(/^\s*#\s*edge-injected-hash:\s*(sha256-[A-Za-z0-9+/]+=*)\s*$/);
+		const match = line.match(/^\s*#\s*edge-injected-hash:\s*(sha512-[A-Za-z0-9+/]+=*)\s*$/);
 		if (match) hashes.add(match[1]);
 	}
 	return hashes;
@@ -307,5 +307,5 @@ if (inCspNotBuild.length > 0) {
 	for (const h of inCspNotBuild) console.error(`  '${h}'`);
 }
 
-console.error("\nUpdate the sha256 hashes in public/_headers to match the build output.");
+console.error("\nUpdate the sha512 hashes in public/_headers to match the build output.");
 process.exit(1);

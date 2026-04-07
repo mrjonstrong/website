@@ -25,19 +25,21 @@ openssl s_client -connect jonathanstrong.org:443 -groups X25519MLKEM768
 
 **Verdict: PQC-ready.** Hybrid key exchange is active. Classical fallback (X25519) is available for older clients.
 
-### CSP script hashes (SHA-256)
+### CSP script hashes (SHA-256 → SHA-512)
 
-The site's Content Security Policy in `public/_headers` uses SHA-256 hashes to allowlist inline scripts:
+The site's Content Security Policy in `public/_headers` uses hash-based allowlisting for inline scripts. A post-build verification script (`scripts/verify-csp-hashes.mjs`) recomputes these hashes and fails the build on mismatch.
+
+Before this audit, the hashes used SHA-256. SHA-256 is quantum-resistant — Grover's algorithm reduces brute-force search from 2²⁵⁶ to 2¹²⁸, which is still computationally infeasible. So there was no immediate vulnerability.
+
+But CSP supports SHA-512, and the change is trivial: update the hash algorithm in the verification script and regenerate the hashes in `_headers`. SHA-512 gives a post-quantum security margin of 2²⁵⁶ — the same margin SHA-256 provides classically today — and aligns with CNSA 2.0, which approves SHA-384 and SHA-512 for all uses.
 
 ```text
-script-src 'self' 'sha256-OdbZQZXbUBJu+W/...' ...
+script-src 'self' 'sha512-u6gNGUVBdYA/SC+1XRAkLH/...' ...
 ```
 
-A post-build verification script (`scripts/verify-csp-hashes.mjs`) recomputes these hashes using Node's `createHash("sha256")` and fails the build on mismatch.
+Running this assessment surfaced an easy win: a two-line change to the build script and a hash regeneration. Not urgent, but why leave security margin on the table when the cost is near zero?
 
-SHA-256 is **quantum-resistant**. Grover's algorithm reduces brute-force search from 2²⁵⁶ to 2¹²⁸ operations, which is still computationally infeasible. NIST considers SHA-256 safe for the foreseeable quantum future, and CNSA 2.0 approves SHA-384 and SHA-512 but does not deprecate SHA-256 for hashing.
-
-**Verdict: PQC-ready.** No changes needed.
+**Verdict: upgraded to PQC-ready.** Moved from SHA-256 to SHA-512.
 
 ### HSTS and transport security
 
@@ -83,9 +85,9 @@ The API key itself is a bearer token — a symmetric secret. Symmetric cryptogra
 
 ### Node.js crypto usage
 
-The build pipeline uses `createHash("sha256")` for CSP verification and `crypto.randomUUID()` for generating component IDs. Both are fine:
+The build pipeline uses `createHash("sha512")` for CSP verification and `crypto.randomUUID()` for generating component IDs. Both are fine:
 
-- SHA-256: quantum-resistant (as discussed above).
+- SHA-512: quantum-resistant (as discussed above).
 - `randomUUID()`: uses a CSPRNG. Quantum computers don't break random number generation.
 
 **Verdict: PQC-ready.**
@@ -98,21 +100,21 @@ The site doesn't load external scripts, so SRI attributes aren't present. This i
 
 ## Summary
 
-| Component                  | Algorithm        | Quantum-safe? | Action needed        |
-| -------------------------- | ---------------- | ------------- | -------------------- |
-| TLS key exchange           | X25519MLKEM768   | Yes (hybrid)  | None                 |
-| CSP script hashes          | SHA-256          | Yes           | None                 |
-| HSTS                       | N/A              | Yes           | None                 |
-| Git commit pinning         | SHA-1            | No            | Awaiting Git SHA-256 |
-| Trivy / dependency scans   | N/A              | N/A           | Monitor tooling      |
-| Webmention API (TLS)       | Upstream-depends | Unknown       | Low priority         |
-| Build-time hashing         | SHA-256          | Yes           | None                 |
-| Random ID generation       | CSPRNG           | Yes           | None                 |
-| External script loading    | None             | N/A           | None (no externals)  |
+| Component                  | Algorithm        | Quantum-safe? | Action needed            |
+| -------------------------- | ---------------- | ------------- | ------------------------ |
+| TLS key exchange           | X25519MLKEM768   | Yes (hybrid)  | None                     |
+| CSP script hashes          | SHA-512          | Yes           | Upgraded (was SHA-256)   |
+| HSTS                       | N/A              | Yes           | None                     |
+| Git commit pinning         | SHA-1            | No            | Awaiting Git SHA-256     |
+| Trivy / dependency scans   | N/A              | N/A           | Monitor tooling          |
+| Webmention API (TLS)       | Upstream-depends | Unknown       | Low priority             |
+| Build-time hashing         | SHA-512          | Yes           | Upgraded (was SHA-256)   |
+| Random ID generation       | CSPRNG           | Yes           | None                     |
+| External script loading    | None             | N/A           | None (no externals)      |
 
 ## What this means
 
-This site is in a strong position. The two most important cryptographic operations — TLS to visitors and integrity hashing in the build — are already quantum-resistant without any changes on my part.
+This site is in a strong position. The most important cryptographic operation — TLS to visitors — was already quantum-resistant without any changes on my part. Running this audit also surfaced an easy improvement: upgrading the CSP and build-time hashes from SHA-256 to SHA-512, aligning with CNSA 2.0 guidance for near-zero cost.
 
 The only area where a quantum-vulnerable algorithm is in use (SHA-1 in Git) is an ecosystem-wide limitation that GitHub is actively addressing. There's nothing to do at the repository level except keep actions SHA-pinned (which is already the practice) and move to SHA-256 commit hashes when Git and GitHub complete the migration.
 
