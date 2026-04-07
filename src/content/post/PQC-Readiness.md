@@ -29,7 +29,7 @@ openssl s_client -connect jonathanstrong.org:443 -groups X25519MLKEM768
 
 The site's Content Security Policy in `public/_headers` uses hash-based allowlisting for inline scripts. A post-build verification script (`scripts/verify-csp-hashes.mjs`) recomputes these hashes and fails the build on mismatch.
 
-Before this audit, the hashes used SHA-256. SHA-256 is quantum-resistant — Grover's algorithm reduces brute-force search from 2²⁵⁶ to 2¹²⁸, which is still computationally infeasible. So there was no immediate vulnerability.
+Before this audit, the hashes used SHA-256. SHA-256 is quantum-resistant — Grover's algorithm reduces brute-force preimage search from 2²⁵⁶ to 2¹²⁸, which is still computationally infeasible. So there was no immediate vulnerability.
 
 But CSP supports SHA-512, and the change is trivial: update the hash algorithm in the verification script and regenerate the hashes in `_headers`. SHA-512 gives a post-quantum security margin of 2²⁵⁶ — the same margin SHA-256 provides classically today — and aligns with CNSA 2.0, which approves SHA-384 and SHA-512 for all uses.
 
@@ -121,3 +121,5 @@ The only area where a quantum-vulnerable algorithm is in use (SHA-1 in Git) is a
 For a static site with no server-side computation, no database, no user authentication, and no long-lived secrets, the attack surface for quantum threats is genuinely minimal. The real PQC work — migrating key exchange, certificates, and signatures — sits with Cloudflare and GitHub, both of whom are ahead of most of the industry.
 
 If you're assessing your own systems, the approach is the same: inventory every cryptographic touchpoint, check whether each algorithm is quantum-resistant, and focus your energy on the gaps. For most people, the biggest win is confirming that their TLS provider already supports hybrid PQC key exchange — and in 2026, most major providers do.
+
+*This post was written with the help of Claude.*
