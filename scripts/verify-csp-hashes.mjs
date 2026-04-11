@@ -1,5 +1,5 @@
 /**
- * Post-build script that verifies the inline script SHA-256 hashes in
+ * Post-build script that verifies the inline script SHA-512 hashes in
  * public/_headers match what Astro actually produced in dist/.
  *
  * Exits with code 1 (failing the build) if there is a mismatch.
@@ -33,7 +33,7 @@ function findHtmlFiles(dir) {
 }
 
 /**
- * Return the set of SHA-256 hashes (base64) for every inline <script>
+ * Return the set of SHA-512 hashes (base64) for every inline <script>
  * in the given HTML string that is subject to CSP script-src enforcement.
  * This includes:
  *   - Inline JavaScript scripts with no type attribute (defaults to JS)
@@ -77,8 +77,8 @@ function extractInlineScriptHashes(html) {
 		const body = script.textContent || "";
 		if (!body.trim()) continue;
 
-		const hash = createHash("sha256").update(body).digest("base64");
-		hashes.add(`sha256-${hash}`);
+		const hash = createHash("sha512").update(body).digest("base64");
+		hashes.add(`sha512-${hash}`);
 	}
 	return hashes;
 }
@@ -116,7 +116,7 @@ if (buildHashes.size === 0) {
 	);
 }
 /* ------------------------------------------------------------------ */
-/*  2. Extract sha256-* hashes from the CSP in public/_headers        */
+/*  2. Extract sha512-* hashes from the CSP in public/_headers        */
 /* ------------------------------------------------------------------ */
 
 let headersContent;
@@ -183,7 +183,7 @@ if (!cspValue) {
 }
 
 /**
- * Extract SHA-256 hashes from script-src related directives, falling back
+ * Extract SHA-512 hashes from script-src related directives, falling back
  * to default-src when no script-src* directives are present.
  *
  * CSP directives are semicolon-separated. This function parses the CSP
@@ -193,15 +193,15 @@ if (!cspValue) {
  * default-src directive, which governs scripts in that case.
  *
  * @param {string} cspValue - The full Content-Security-Policy header value
- * @returns {Set<string>} Set of SHA-256 hashes relevant for scripts
+ * @returns {Set<string>} Set of SHA-512 hashes relevant for scripts
  */
 function extractScriptSrcHashes(cspValue) {
 	const hashes = new Set();
 	// Split CSP into directives (semicolon-separated)
 	const directives = cspValue.split(";").map((d) => d.trim());
 
-	// Helper regex to extract SHA-256 hashes from a directive value
-	const hashRe = /["'](sha256-[A-Za-z0-9+/]+=*)["']/g;
+	// Helper regex to extract SHA-512 hashes from a directive value
+	const hashRe = /["'](sha512-[A-Za-z0-9+/]+=*)["']/g;
 
 	let hasScriptDirective = false;
 
@@ -266,7 +266,7 @@ const cspHashes = extractScriptSrcHashes(cspValue);
 /* ------------------------------------------------------------------ */
 
 /**
- * Parse "# edge-injected-hash: sha256-..." comments from the _headers file.
+ * Parse "# edge-injected-hash: sha512-..." comments from the _headers file.
  * These hashes belong to scripts that Cloudflare (or another CDN) injects at
  * the edge — they are intentionally absent from the static build output and
  * must be excluded from the "hash in CSP but not in build" error.
@@ -274,7 +274,7 @@ const cspHashes = extractScriptSrcHashes(cspValue);
 function extractEdgeInjectedHashes(content) {
 	const hashes = new Set();
 	for (const line of content.split(/\r?\n/)) {
-		const match = line.match(/^\s*#\s*edge-injected-hash:\s*(sha256-[A-Za-z0-9+/]+=*)\s*$/);
+		const match = line.match(/^\s*#\s*edge-injected-hash:\s*(sha512-[A-Za-z0-9+/]+=*)\s*$/);
 		if (match) hashes.add(match[1]);
 	}
 	return hashes;
@@ -307,5 +307,5 @@ if (inCspNotBuild.length > 0) {
 	for (const h of inCspNotBuild) console.error(`  '${h}'`);
 }
 
-console.error("\nUpdate the sha256 hashes in public/_headers to match the build output.");
+console.error("\nUpdate the sha512 hashes in public/_headers to match the build output.");
 process.exit(1);
