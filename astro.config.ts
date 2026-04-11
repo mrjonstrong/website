@@ -1,4 +1,5 @@
 import fs from "node:fs";
+
 // Rehype plugins
 import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
