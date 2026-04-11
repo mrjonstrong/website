@@ -99,7 +99,7 @@ You should also make sure secrets don't end up in your shell history. In zsh you
 setopt HIST_IGNORE_SPACE
 ```
 
-Then prefix any command containing a secret with a leading space (e.g. ` export SECRET=...`) and it won't be recorded in your history. It's a small thing but it reduces the number of places credentials can leak from.
+Then prefix any command containing a secret with a leading space (e.g. `export SECRET=...`) and it won't be recorded in your history. It's a small thing but it reduces the number of places credentials can leak from.
 
 To check your own exposure:
 

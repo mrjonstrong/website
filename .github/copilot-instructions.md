@@ -54,6 +54,7 @@ pnpm format         # prettier -w . --cache
 
 - Blog posts go in `src/content/post/` directory as `.md` or `.mdx` files
 - Use frontmatter for all posts:
+
   ```yaml
   ---
   title: "Your Title"          # max 60 characters (enforced by schema)
@@ -96,7 +97,7 @@ pnpm format         # prettier -w . --cache
 
 ## Security & Boundaries
 
-### DO NOT:
+### DO NOT
 
 - Commit secrets, API keys, or credentials
 - Modify security scanning workflows without careful consideration
@@ -105,7 +106,7 @@ pnpm format         # prettier -w . --cache
 - Remove or disable security scanning tools (Trivy)
 - Remove security overrides from `pnpm.overrides` in package.json without checking first
 
-### DO:
+### DO
 
 - Follow security best practices in blog posts
 - Keep dependencies up to date (Dependabot auto-updates to `develop` daily)
@@ -118,6 +119,7 @@ pnpm format         # prettier -w . --cache
 The site uses the following Astro integrations and plugins:
 
 **Astro Integrations:**
+
 - `@astrojs/mdx`: MDX support
 - `@astrojs/sitemap`: Automatic sitemap generation
 - `astro-expressive-code`: Code syntax highlighting (Dracula dark, GitHub Light themes)
@@ -126,21 +128,25 @@ The site uses the following Astro integrations and plugins:
 - `astro-webmanifest`: Web manifest for PWA
 
 **Libraries (not integrations):**
+
 - `@astrojs/rss`: RSS feed generation via endpoint files (`src/pages/rss.xml.ts`, `src/pages/notes/rss.xml.ts`)
 
 **Remark Plugins:**
+
 - `remark-directive`: Handle ::: directives in markdown
 - `remark-reading-time`: Calculate reading time (custom plugin)
 - `remark-github-card`: GitHub card embeds (custom plugin)
 - `remark-admonitions`: Admonition blocks (custom plugin)
 
 **Rehype Plugins:**
+
 - `rehypeHeadingIds` (from `@astrojs/markdown-remark`): Add IDs to headings
 - `rehype-autolink-headings`: Make headings clickable links
 - `rehype-external-links`: External links open in new tab with noopener/noreferrer
 - `rehype-unwrap-images`: Remove paragraph wrappers from images
 
 **Build Tools:**
+
 - `pagefind`: Client-side search indexing (runs via postbuild script)
 
 ## Testing Changes
@@ -171,7 +177,7 @@ Before submitting a PR:
 
 ## Additional Notes
 
-- **Site URL:** https://jonathanstrong.org
+- **Site URL:** <https://jonathanstrong.org>
 - **Node version:** 22 (see `.nvmrc`)
 - **Framework:** Astro 5 (static output)
 - **Styling:** Tailwind CSS v4
