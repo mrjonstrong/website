@@ -21,7 +21,7 @@ First of all, I think it is easiest to set up a password manager using a laptop.
 First things first — while 2FA is optional for a new 1Password account, I strongly recommend having something you can use for 2FA ready so you can turn it on right after signup.
 
 You might already have something you use for 2FA with other accounts — often time-based one-time passwords. Usually a 6-digit code that changes every 30 seconds.
-In which case, just use that for now. Many people have Microsoft Authenticator <https://www.microsoft.com/en-gb/account/authenticator> already for use with an old Hotmail or Microsoft account. Or Google Authenticator <https://support.google.com/accounts/answer/1066447?hl=en&co=GENIE.Platform%3DAndroid&oco=0>.
+In which case, just use that for now. Many people have Microsoft Authenticator <https://www.microsoft.com/en-gb/security/mobile-authenticator-app> already for use with an old Hotmail or Microsoft account. Or Google Authenticator <https://support.google.com/accounts/answer/1066447?hl=en&co=GENIE.Platform%3DAndroid&oco=0>.
 
 If you don't have anything, I would recommend using Authy <https://authy.com/>.
 You can back up if you like, so if you switch phones you can transfer it easily.

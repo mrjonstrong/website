@@ -105,11 +105,11 @@ Cheat sheets and other useful links (needs tiding up and moving to another page)
 
 <https://www.explainshell.com/>
 
-<https://www.sans.org/security-resources/sec560/netcat_cheat_sheet_v1.pdf>
+<https://www.sans.org/posters/netcat-cheat-sheet>
 
 <https://www.andreafortuna.org/2018/07/18/tcpdump-a-simple-cheatsheet/>
 
-<https://www.sans.org/security-resources/GoogleCheatSheet.pdf>
+<https://www.sans.org/posters/google-hacking-and-defense-cheat-sheet>
 
 <https://www.exploit-db.com/google-hacking-database>
 
@@ -117,17 +117,17 @@ Cheat sheets and other useful links (needs tiding up and moving to another page)
 
 <https://github.com/darkoperator/dnsrecon>
 
-<https://blogs.sans.org/pen-testing/files/2013/10/NmapCheatSheetv1.1.pdf>
+<https://www.sans.org/blog/sans-pen-test-cheat-sheet-nmap-v1-1>
 
-<https://github.com/SecureAuthCorp/impacket>
+<https://github.com/fortra/impacket>
 
-<https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/bitsadmin-examples>
+<https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/bitsadmin-examples>
 
 <https://pwnwiki.io/#!privesc/windows/index.md>
 
 <https://github.com/411Hall/JAWS>
 
-<https://github.com/GDSSecurity/Windows-Exploit-Suggester>
+<https://github.com/AonCyberLabs/Windows-Exploit-Suggester>
 
 <https://github.com/bitsadmin/wesng>
 
@@ -147,13 +147,13 @@ Cheat sheets and other useful links (needs tiding up and moving to another page)
 
 <https://github.com/maurosoria/dirsearch>
 
-<https://tools.kali.org/web-applications/dirbuster>
+<https://www.kali.org/tools/dirbuster/>
 
 <https://github.com/OJ/gobuster>
 
 <https://github.com/xmendez/wfuzz>
 
-<http://pentestmonkey.net/category/cheat-sheet>
+<https://pentestmonkey.net/category/cheat-sheet>
 
 Credit goes to the below links where I gathered most of the sources:
 
@@ -175,8 +175,6 @@ A Detailed Guide on OSCP Preparation – From Newbie to OSCP
 <https://411hall.github.io/OSCP-Preparation/>
 
 <https://sushant747.gitbooks.io/total-oscp-guide/content/>
-
-<https://0xc0ffee.io/blog/OSCP-Goldmine>
 
 OSCP Journey: Exam & Lab Prep Tips
 
