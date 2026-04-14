@@ -23,7 +23,7 @@ To that end check out some basics of securing your GitHub account.
 
 [https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification)
 
-[https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule)
+[https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule)
 
 Specifics for securing your respositry:
 [https://docs.github.com/en/code-security/getting-started/github-security-features](https://docs.github.com/en/code-security/getting-started/github-security-features)
@@ -57,36 +57,36 @@ Some repository basics (already added a security.md as above):
 
 I'm going to use [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow), just because I like the idea of the main branch being what is released in production and having a develop branch to add features and bugfixes too. Other Git workflows are available ;)
 
-I mention this as it moves us on to how we can secure our branches in GitHub. With [branch protection](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches).
+I mention this as it moves us on to how we can secure our branches in GitHub. With [branch protection](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
 
 As well as protecting the main branch, protecting the develop branch too is worth it, at least to a point.
 
 For main and develop branches
 
 - By default administrators not inlcudede in branch protection - include them. 'By default, the restrictions of a branch protection rule don't apply to people with admin permissions to the repository or custom roles with the "bypass branch protections" permission. You can optionally apply the restrictions to administrators and roles with the "bypass branch protections" permission, too.'
-- By default, you cannot [delete a protected branch](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches#allow-deletions). Leave the default.
-- By default, [GitHub blocks force pushes on all protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches#allow-force-pushes). Leave the default.
-- [Require signed commits](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches#require-signed-commits), for most individual users, GPG or SSH will be the best choice for signing commits. SSH signatures are the simplest to generate. You can even upload your existing authentication key to GitHub Enterprise Cloud to also use as a signing key. Generating a GPG signing key is more involved than generating an SSH key, but GPG has features that SSH does not. A GPG key can expire or be revoked when no longer used. GitHub Enterprise Cloud shows commits that were signed with such a key as "Verified" unless the key was marked as compromised. SSH keys don't have this capability.
+- By default, you cannot [delete a protected branch](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#allow-deletions). Leave the default.
+- By default, [GitHub blocks force pushes on all protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#allow-force-pushes). Leave the default.
+- [Require signed commits](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-signed-commits), for most individual users, GPG or SSH will be the best choice for signing commits. SSH signatures are the simplest to generate. You can even upload your existing authentication key to GitHub Enterprise Cloud to also use as a signing key. Generating a GPG signing key is more involved than generating an SSH key, but GPG has features that SSH does not. A GPG key can expire or be revoked when no longer used. GitHub Enterprise Cloud shows commits that were signed with such a key as "Verified" unless the key was marked as compromised. SSH keys don't have this capability.
   When using the Rebase and Merge option on a pull request, it's important to note that the commits in the head branch are added to the base branch without commit signature verification. When you use this option, GitHub creates a modified commit, using the data and content of the original commit. This means that GitHub didn't truly create this commit, and can't therefore sign it as a generic system user. GitHub doesn't have access to the committer's private signing keys, so it can't sign the commit on the user's behalf.
   A workaround for this is to rebase and merge locally, and then push the changes to the pull request's base branch.
   [About commit signature verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification)
 
 For main, optionally develop
 
-- [Require pull request reviews before merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches#require-pull-request-reviews-before-merging). Select at least 1 reviewer, but 2 or more reviewers would be better.
+- [Require pull request reviews before merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-pull-request-reviews-before-merging). Select at least 1 reviewer, but 2 or more reviewers would be better.
 - Dismiss stale pull request approvals when new commits are pushed
-- [Require status checks to pass before merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches#require-status-checks-before-merging) and then select 'Require branches to be up to date before merging'
+- [Require status checks to pass before merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-status-checks-before-merging) and then select 'Require branches to be up to date before merging'
 - [Require review from Code Owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
-- [Require conversation resolution before merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches#require-conversation-resolution-before-merging)
+- [Require conversation resolution before merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-conversation-resolution-before-merging)
 
 To consider
 
-- <https://docs.github.com/en/enterprise-cloud@latest/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches#require-deployments-to-succeed-before-merging>
+- <https://docs.github.com/en/enterprise-cloud@latest/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#require-deployments-to-succeed-before-merging>
 
 You can set up Environments and protect them - [Environments](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)
 
-[Keeping your GitHub Actions and workflows secure](https://securitylab.github.com/research/github-actions-preventing-pwn-requests/)
-See also [Understanding the risk of script injections](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#understanding-the-risk-of-script-injections)
+[Keeping your GitHub Actions and workflows secure](https://securitylab.github.com/resources/github-actions-preventing-pwn-requests/)
+See also [Understanding the risk of script injections](https://docs.github.com/en/actions/concepts/security/script-injections)
 
 Whilst not security related, following best practices for open source projects - [recommended community standards](https://opensource.guide/).
 

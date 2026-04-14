@@ -119,15 +119,15 @@ Cheat sheets and other useful links (needs tiding up and moving to another page)
 
 <https://blogs.sans.org/pen-testing/files/2013/10/NmapCheatSheetv1.1.pdf>
 
-<https://github.com/SecureAuthCorp/impacket>
+<https://github.com/fortra/impacket>
 
-<https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/bitsadmin-examples>
+<https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/bitsadmin-examples>
 
 <https://pwnwiki.io/#!privesc/windows/index.md>
 
 <https://github.com/411Hall/JAWS>
 
-<https://github.com/GDSSecurity/Windows-Exploit-Suggester>
+<https://github.com/AonCyberLabs/Windows-Exploit-Suggester>
 
 <https://github.com/bitsadmin/wesng>
 
@@ -147,13 +147,13 @@ Cheat sheets and other useful links (needs tiding up and moving to another page)
 
 <https://github.com/maurosoria/dirsearch>
 
-<https://tools.kali.org/web-applications/dirbuster>
+<https://www.kali.org/tools/dirbuster/>
 
 <https://github.com/OJ/gobuster>
 
 <https://github.com/xmendez/wfuzz>
 
-<http://pentestmonkey.net/category/cheat-sheet>
+<https://pentestmonkey.net/category/cheat-sheet>
 
 Credit goes to the below links where I gathered most of the sources:
 
