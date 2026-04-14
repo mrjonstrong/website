@@ -157,7 +157,7 @@ Until GitHub makes secure defaults the norm rather than the opt-in, the responsi
 
 ## Resources
 
-- [Aqua Security: Update on Ongoing Investigation and Remediation](https://www.aquasec.com/blog/update-on-ongoing-investigation-and-remediation/)
+- [Aqua Security: Trivy Supply Chain Attack — What You Need to Know](https://www.aquasec.com/blog/trivy-supply-chain-attack-what-you-need-to-know/)
 - [GitHub Advisory: GHSA-69fq-xp46-6x23](https://github.com/advisories/GHSA-69fq-xp46-6x23)
 - [StepSecurity: trivy-compromise-scanner](https://github.com/step-security/trivy-compromise-scanner)
 - [SANS: When the Security Scanner Became the Weapon](https://www.sans.org/webcasts/when-security-scanner-became-weapon/) — webcast covering the full attack chain
