@@ -153,8 +153,6 @@ Cheat sheets and other useful links (needs tiding up and moving to another page)
 
 <https://github.com/xmendez/wfuzz>
 
-<https://pentestmonkey.net/category/cheat-sheet>
-
 Credit goes to the below links where I gathered most of the sources:
 
 Prep guide for Offsec's PWK

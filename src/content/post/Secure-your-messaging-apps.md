@@ -11,7 +11,7 @@ These aren't just some mythical things not to worry yourself about because they 
 
 ## Why is it important?
 
-A well known journalist had their signal account compromised. This could have been avoided had they enabled registration lock. [How a Third-Party SMS Service Was Used to Take Over Signal Accounts](https://www.vice.com/en/article/how-a-third-party-sms-service-was-used-to-take-over-signal-accounts/)
+A well known journalist had their Signal account compromised. This could have been avoided had they enabled registration lock. [How a Third-Party SMS Service Was Used to Take Over Signal Accounts](https://www.vice.com/en/article/how-a-third-party-sms-service-was-used-to-take-over-signal-accounts/)
 
 ### Signal
 
