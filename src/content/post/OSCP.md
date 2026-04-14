@@ -105,11 +105,11 @@ Cheat sheets and other useful links (needs tiding up and moving to another page)
 
 <https://www.explainshell.com/>
 
-<https://www.sans.org/security-resources/sec560/netcat_cheat_sheet_v1.pdf>
+<https://www.sans.org/posters/netcat-cheat-sheet>
 
 <https://www.andreafortuna.org/2018/07/18/tcpdump-a-simple-cheatsheet/>
 
-<https://www.sans.org/security-resources/GoogleCheatSheet.pdf>
+<https://www.sans.org/posters/google-hacking-and-defense-cheat-sheet>
 
 <https://www.exploit-db.com/google-hacking-database>
 

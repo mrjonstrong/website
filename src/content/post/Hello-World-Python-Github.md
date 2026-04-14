@@ -35,7 +35,7 @@ This includes:
 - Code scanning with CodeQL
 - Secret scanning is enabled by default for public repositories too
 
-For this demo I'm using the repository [https://github.com/mrjonstrong/upgraded-disco](https://github.com/mrjonstrong/upgraded-disco) which is a hello world python app (for now).
+For this demo I'm using a hello world python app repository (for now).
 
 Some repository basics (already added a security.md as above):
 
