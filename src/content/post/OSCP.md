@@ -117,7 +117,7 @@ Cheat sheets and other useful links (needs tiding up and moving to another page)
 
 <https://github.com/darkoperator/dnsrecon>
 
-<https://blogs.sans.org/pen-testing/files/2013/10/NmapCheatSheetv1.1.pdf>
+<https://www.sans.org/blog/sans-pen-test-cheat-sheet-nmap-v1-1>
 
 <https://github.com/fortra/impacket>
 
@@ -175,8 +175,6 @@ A Detailed Guide on OSCP Preparation – From Newbie to OSCP
 <https://411hall.github.io/OSCP-Preparation/>
 
 <https://sushant747.gitbooks.io/total-oscp-guide/content/>
-
-<https://0xc0ffee.io/blog/OSCP-Goldmine>
 
 OSCP Journey: Exam & Lab Prep Tips
 
