@@ -19,12 +19,12 @@
 		"node": ">=22.19.0"
 	},
 	"dependencies": {
-		"@astrojs/markdown-remark": "^7.1.0",
-		"@astrojs/mdx": "5.0.3",
+		"@astrojs/markdown-remark": "^7.1.1",
+		"@astrojs/mdx": "5.0.4",
 		"@astrojs/rss": "4.0.18",
 		"@astrojs/sitemap": "3.7.2",
-		"@tailwindcss/vite": "4.2.3",
-		"astro": "6.1.8",
+		"@tailwindcss/vite": "4.2.4",
+		"astro": "6.1.9",
 		"astro-expressive-code": "^0.41.7",
 		"astro-icon": "^1.1.5",
 		"astro-robots-txt": "^1.0.0",
@@ -46,7 +46,7 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.8",
-		"@biomejs/biome": "^2.4.12",
+		"@biomejs/biome": "^2.4.13",
 		"@iconify-json/mdi": "^1.2.3",
 		"@pagefind/default-ui": "^1.5.2",
 		"@resvg/resvg-js": "^2.6.2",
@@ -59,9 +59,9 @@
 		"pagefind": "^1.5.2",
 		"prettier": "^3.8.3",
 		"prettier-plugin-astro": "0.14.1",
-		"prettier-plugin-tailwindcss": "^0.7.2",
+		"prettier-plugin-tailwindcss": "^0.7.3",
 		"reading-time": "^1.5.0",
-		"tailwindcss": "4.2.3",
+		"tailwindcss": "4.2.4",
 		"typescript": "^5.9.3"
 	},
 	"pnpm": {
