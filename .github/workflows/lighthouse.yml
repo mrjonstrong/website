@@ -33,6 +33,7 @@ jobs:
             jonathanstrong.org:443
             mtalk.google.com:5228
             registry.npmjs.org:443
+            release-assets.githubusercontent.com:443
             safebrowsingohttpgateway.googleapis.com:443
             www.google.com:443
 
