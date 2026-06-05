@@ -62,7 +62,7 @@
 		"prettier-plugin-tailwindcss": "^0.8.0",
 		"reading-time": "^1.5.0",
 		"tailwindcss": "4.3.0",
-		"typescript": "^5.9.3"
+		"typescript": "^6.0.3"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": ["@biomejs/biome", "@tailwindcss/oxide", "esbuild", "sharp"],
