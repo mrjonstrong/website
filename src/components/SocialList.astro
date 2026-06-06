@@ -66,8 +66,10 @@ const socialLinks: {
 	{
 		socialLinks
 			.filter(({ note }) => note)
-			.map(({ note }) => (
-				<span class="text-gray-500 text-sm italic">({note})</span>
+			.map(({ friendlyName, note }) => (
+				<span class="text-gray-500 text-sm italic">
+					On {friendlyName}, {note}
+				</span>
 			))
 	}
 </div>
