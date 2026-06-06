@@ -63,13 +63,11 @@ const socialLinks: {
 			))
 		}
 	</ul>
+	{
+		socialLinks
+			.filter(({ note }) => note)
+			.map(({ note }) => (
+				<span class="text-gray-500 text-sm italic">({note})</span>
+			))
+	}
 </div>
-{
-	socialLinks
-		.filter(({ note }) => note)
-		.map(({ friendlyName, note }) => (
-			<p class="text-gray-500 mt-1 text-sm italic">
-				{friendlyName}: {note}
-			</p>
-		))
-}
