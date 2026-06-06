@@ -12,6 +12,7 @@ const socialLinks: {
 	friendlyName: string;
 	link: string;
 	name: string;
+	note?: string;
 }[] = [
 	{
 		friendlyName: "Bluesky",
@@ -37,6 +38,7 @@ const socialLinks: {
 		friendlyName: "LinkedIn",
 		link: "https://www.linkedin.com/in/mrjonstrong/",
 		name: "mdi:linkedin",
+		note: "I only connect with people I know",
 	},
 ];
 ---
@@ -45,19 +47,29 @@ const socialLinks: {
 	<p>Find me on</p>
 	<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
 		{
-			socialLinks.map(({ friendlyName, link, name }) => (
+			socialLinks.map(({ friendlyName, link, name, note }) => (
 				<li class="flex">
 					<a
 						class="hover:text-link inline-block"
 						href={link}
 						rel="noreferrer"
 						target="_blank"
+						title={note ? `${friendlyName} — ${note}` : friendlyName}
 					>
 						<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
-						<span class="sr-only">{friendlyName}</span>
+						<span class="sr-only">{note ? `${friendlyName} (${note})` : friendlyName}</span>
 					</a>
 				</li>
 			))
 		}
 	</ul>
 </div>
+{
+	socialLinks
+		.filter(({ note }) => note)
+		.map(({ friendlyName, note }) => (
+			<p class="text-gray-500 mt-1 text-sm italic">
+				{friendlyName}: {note}
+			</p>
+		))
+}
