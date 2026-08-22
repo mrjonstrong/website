@@ -19,7 +19,7 @@ importers:
   .:
     dependencies:
       '@astrojs/markdown-remark':
-        specifier: ^7.2.4
+        specifier: 7.2.4
         version: 7.2.4
       '@astrojs/mdx':
         specifier: 7.0.7
