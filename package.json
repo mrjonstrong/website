@@ -19,12 +19,12 @@
 		"node": ">=22.19.0"
 	},
 	"dependencies": {
-		"@astrojs/markdown-remark": "^7.2.3",
-		"@astrojs/mdx": "5.0.6",
+		"@astrojs/markdown-remark": "7.2.4",
+		"@astrojs/mdx": "7.0.7",
 		"@astrojs/rss": "4.0.19",
 		"@astrojs/sitemap": "3.7.3",
 		"@tailwindcss/vite": "4.3.3",
-		"astro": "6.4.6",
+		"astro": "7.2.4",
 		"astro-expressive-code": "^0.44.1",
 		"astro-icon": "^1.2.0",
 		"astro-robots-txt": "^1.0.0",
@@ -76,8 +76,5 @@
 			"svgo": ">=4.0.2 <5.0.0",
 			"esbuild": ">=0.28.1 <0.29.0"
 		}
-	},
-	"overrides": {
-		"sharp": "^0.35.3"
 	}
 }
