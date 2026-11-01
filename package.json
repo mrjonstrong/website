@@ -24,7 +24,7 @@
 		"@astrojs/rss": "4.0.19",
 		"@astrojs/sitemap": "3.7.3",
 		"@tailwindcss/vite": "4.3.3",
-		"astro": "7.2.4",
+		"astro": "7.3.3",
 		"astro-expressive-code": "^0.44.1",
 		"astro-icon": "^1.2.0",
 		"astro-robots-txt": "^1.0.0",
@@ -40,7 +40,7 @@
 		"remark-directive": "^4.0.0",
 		"satori": "0.29.0",
 		"satori-html": "^0.3.2",
-		"sharp": "^0.35.3",
+		"sharp": "^0.35.5",
 		"unified": "^11.0.5",
 		"unist-util-visit": "^5.1.0"
 	},
@@ -67,7 +67,7 @@
 	"pnpm": {
 		"onlyBuiltDependencies": ["@biomejs/biome", "@tailwindcss/oxide", "esbuild", "sharp"],
 		"overrides": {
-			"sharp": "^0.35.3",
+			"sharp": "^0.35.5",
 			"lodash": ">=4.17.23",
 			"@ungap/structured-clone": ">=1.3.1",
 			"nanoid": ">=3.3.18",
