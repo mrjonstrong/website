@@ -9,7 +9,10 @@
 			"!**/.vercel",
 			"!**/.netlify",
 			"!**/.vscode",
-			"!**/.astro"
+			"!**/.astro",
+			"!**/*.md",
+			"!**/*.yml",
+			"!pnpm-lock.yaml"
 		]
 	},
 	"formatter": {
