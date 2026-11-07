@@ -16,7 +16,9 @@ const toc = generateToc(headings);
 	<summary class="title hover:marker:text-accent cursor-pointer text-lg">Table of Contents</summary>
 	<nav class="ms-4 lg:w-full">
 		<ol class="mt-4">
-			{toc.map((heading) => <TOCHeading heading={heading} />)}
+			{toc.map((heading) => (
+				<TOCHeading heading={heading} />
+			))}
 		</ol>
 	</nav>
 </details>

@@ -13,8 +13,8 @@ jobs:
     name: Lighthouse Scores
     runs-on: ubuntu-latest
     permissions:
-      contents: write       # needed to commit and push updated badge SVGs to a branch for PRs
-      pull-requests: write  # needed to create pull requests via GITHUB_TOKEN
+      contents: write # needed to commit and push updated badge SVGs to a branch for PRs
+      pull-requests: write # needed to create pull requests via GITHUB_TOKEN
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3

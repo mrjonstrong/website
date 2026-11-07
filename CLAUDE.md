@@ -47,17 +47,17 @@ Blog posts live in `src/content/post/` as `.md` or `.mdx` files.
 
 ```yaml
 ---
-title: "Post title"          # max 60 characters — enforced by schema
-description: "SEO summary"   # required, shown in post listings
-publishDate: "YYYY-MM-DD"    # or ISO 8601 date
-tags: ["tag1", "tag2"]       # array, not space-separated string
-draft: true                  # omit or set false for published posts
-pinned: false                # optional, pin to top of posts list
-coverImage:                  # optional cover image
+title: "Post title" # max 60 characters — enforced by schema
+description: "SEO summary" # required, shown in post listings
+publishDate: "YYYY-MM-DD" # or ISO 8601 date
+tags: ["tag1", "tag2"] # array, not space-separated string
+draft: true # omit or set false for published posts
+pinned: false # optional, pin to top of posts list
+coverImage: # optional cover image
   src: ./image.jpg
   alt: "Image description"
-ogImage: "/og-image.png"     # optional custom OG image
-updatedDate: "YYYY-MM-DD"    # optional, for last update tracking
+ogImage: "/og-image.png" # optional custom OG image
+updatedDate: "YYYY-MM-DD" # optional, for last update tracking
 ---
 ```
 
@@ -98,14 +98,14 @@ Place images in `public/images/` and reference as `/images/filename.jpg`.
 
 ## CI Workflows
 
-| Workflow                | Trigger                                                                          | Purpose                                               |
-| ----------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `ci.yml`                | push/PR to main, develop (website paths only) + manual                           | Type check, lint (biome + markdownlint), audit, build |
-| `trivy.yml`             | weekly + push/PR to main, develop (package.json / pnpm-lock.yaml only) + manual  | Filesystem vulnerability scanning                     |
-| `dependency-review.yml` | pull_request                                                                     | Flag vulnerable dependencies before merge             |
-| `zizmor.yml`            | PR modifying `.github/workflows/`                                                | Audit workflows for unpinned actions, injection, etc  |
-| `lighthouse.yml`        | weekly + manual                                                                  | Lighthouse scores + badge generation                  |
-| `observatory.yml`       | weekly + manual                                                                  | Mozilla Observatory HTTP header check                 |
+| Workflow                | Trigger                                                                         | Purpose                                               |
+| ----------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `ci.yml`                | push/PR to main, develop (website paths only) + manual                          | Type check, lint (biome + markdownlint), audit, build |
+| `trivy.yml`             | weekly + push/PR to main, develop (package.json / pnpm-lock.yaml only) + manual | Filesystem vulnerability scanning                     |
+| `dependency-review.yml` | pull_request                                                                    | Flag vulnerable dependencies before merge             |
+| `zizmor.yml`            | PR modifying `.github/workflows/`                                               | Audit workflows for unpinned actions, injection, etc  |
+| `lighthouse.yml`        | weekly + manual                                                                 | Lighthouse scores + badge generation                  |
+| `observatory.yml`       | weekly + manual                                                                 | Mozilla Observatory HTTP header check                 |
 
 The previous OpenSSF Scorecards workflow (`scorecards.yml`) was intentionally removed. Its supply-chain and security coverage is now provided by a combination of `trivy.yml` (filesystem and dependency vulnerability scanning), `dependency-review.yml` (GitHub dependency review on PRs), `zizmor.yml` (workflow security checks), and other GitHub-native security tooling (e.g., Dependabot alerts).
 CI runs the same `pnpm check` and `pnpm build` commands used locally. The `postbuild` script runs `pagefind --site dist` for search indexing and `scripts/verify-csp-hashes.mjs` for CSP hash verification.
