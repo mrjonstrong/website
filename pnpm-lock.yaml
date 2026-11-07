@@ -64,6 +64,9 @@ importers:
       mdast-util-directive:
         specifier: ^3.2.0
         version: 3.2.0
+      mdast-util-to-hast:
+        specifier: ^13.2.1
+        version: 13.2.1
       mdast-util-to-markdown:
         specifier: ^2.2.1
         version: 2.2.1
