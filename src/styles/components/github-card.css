@@ -58,8 +58,10 @@
 		}
 	}
 
-	/* gh-error sets only `display`; gh-loading sets background/animation/colour. They never
-	   overlap, so the order is only for the specificity lint (noDescendingSpecificity). */
+	/* A failed fetch adds gh-error without removing gh-loading (see remark-github-card.ts), so a
+	   card can have both classes. Their order here is safe because the declarations are disjoint:
+	   gh-error sets only `display`, gh-loading sets background/animation/colour. The order only
+	   satisfies the noDescendingSpecificity lint. Keep them disjoint if either block changes. */
 	&.gh-error {
 		.gh-avatar,
 		.gh-description,
