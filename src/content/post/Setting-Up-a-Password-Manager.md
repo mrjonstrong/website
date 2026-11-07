@@ -125,7 +125,7 @@ These are the 6-digit codes that change every 30 seconds — the kind generated 
 When a site offers to set up an authenticator app it will usually show you a QR code. You can scan this directly in 1Password rather than a separate app:
 
 1. Open the login entry in 1Password for that site.
-2. Edit the item and add a new field of type *One-Time Password*.
+2. Edit the item and add a new field of type _One-Time Password_.
 3. Click the QR code icon and scan (or paste the secret key shown beneath the QR code).
 4. Save. 1Password will now generate the rotating code and autofill it alongside your username and password.
 
@@ -147,7 +147,7 @@ Passkeys are a newer standard that can replace both the password and the second 
 
 When a site offers to create a passkey:
 
-1. Trigger the passkey creation flow on the site (usually under *Security* settings).
+1. Trigger the passkey creation flow on the site (usually under _Security_ settings).
 2. Your browser will prompt you to save the passkey — choose 1Password as the provider.
 3. 1Password saves the passkey linked to that login entry.
 4. Next time you sign in, 1Password detects the passkey prompt and fills it automatically.
