@@ -71,4 +71,4 @@ You don't need to do everything at once. Just add one more layer than you have t
 
 ---
 
-*This post was written with the help of [Claude](https://claude.ai).*
+_This post was written with the help of [Claude](https://claude.ai)._

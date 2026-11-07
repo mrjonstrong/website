@@ -34,22 +34,22 @@
 		<div class="dialog-frame flex grow flex-col gap-4 p-6 pt-12 sm:pt-6">
 			<button
 				class="ms-auto cursor-pointer rounded-md bg-zinc-200 p-2 font-semibold dark:bg-zinc-700"
-				data-close-modal>Close</button
+				data-close-modal
 			>
-			{
-				import.meta.env.DEV ? (
-					<div class="mx-auto text-center">
-						<p>
-							Search is only available in production builds. <br />
-							Try building and previewing the site to test it out locally.
-						</p>
-					</div>
-				) : (
-					<div class="search-container">
-						<div id="cactus__search" />
-					</div>
-				)
-			}
+				Close
+			</button>
+			{import.meta.env.DEV ? (
+				<div class="mx-auto text-center">
+					<p>
+						Search is only available in production builds. <br />
+						Try building and previewing the site to test it out locally.
+					</p>
+				</div>
+			) : (
+				<div class="search-container">
+					<div id="cactus__search" />
+				</div>
+			)}
 		</div>
 	</dialog>
 </site-search>
@@ -109,7 +109,7 @@
 								const onDone = () => resolve();
 								existingLink.addEventListener("load", onDone, { once: true });
 								existingLink.addEventListener("error", onDone, { once: true });
-						  })
+							})
 					: new Promise<void>((resolve) => {
 							const link = document.createElement("link");
 							link.rel = "stylesheet";
@@ -118,7 +118,7 @@
 							link.addEventListener("load", () => resolve(), { once: true });
 							link.addEventListener("error", () => resolve(), { once: true });
 							document.head.appendChild(link);
-					  });
+						});
 				const [{ PagefindUI }] = await Promise.all([import("@pagefind/default-ui"), cssReady]);
 				new PagefindUI({
 					baseUrl: import.meta.env.BASE_URL,

@@ -100,17 +100,17 @@ The site doesn't load external scripts, so SRI attributes aren't present. This i
 
 ## Summary
 
-| Component                  | Algorithm        | Quantum-safe? | Action needed            |
-| -------------------------- | ---------------- | ------------- | ------------------------ |
-| TLS key exchange           | X25519MLKEM768   | Yes (hybrid)  | None                     |
-| CSP script hashes          | SHA-512          | Yes           | Upgraded (was SHA-256)   |
-| HSTS                       | N/A              | Yes           | None                     |
-| Git commit pinning         | SHA-1            | No            | Awaiting Git SHA-256     |
-| Trivy / dependency scans   | N/A              | N/A           | Monitor tooling          |
-| Webmention API (TLS)       | Upstream-depends | Unknown       | Low priority             |
-| Build-time hashing         | SHA-512          | Yes           | Upgraded (was SHA-256)   |
-| Random ID generation       | CSPRNG           | Yes           | None                     |
-| External script loading    | None             | N/A           | None (no externals)      |
+| Component                | Algorithm        | Quantum-safe? | Action needed          |
+| ------------------------ | ---------------- | ------------- | ---------------------- |
+| TLS key exchange         | X25519MLKEM768   | Yes (hybrid)  | None                   |
+| CSP script hashes        | SHA-512          | Yes           | Upgraded (was SHA-256) |
+| HSTS                     | N/A              | Yes           | None                   |
+| Git commit pinning       | SHA-1            | No            | Awaiting Git SHA-256   |
+| Trivy / dependency scans | N/A              | N/A           | Monitor tooling        |
+| Webmention API (TLS)     | Upstream-depends | Unknown       | Low priority           |
+| Build-time hashing       | SHA-512          | Yes           | Upgraded (was SHA-256) |
+| Random ID generation     | CSPRNG           | Yes           | None                   |
+| External script loading  | None             | N/A           | None (no externals)    |
 
 ## What this means
 
@@ -122,4 +122,4 @@ For a static site with no server-side computation, no database, no user authenti
 
 If you're assessing your own systems, the approach is the same: inventory every cryptographic touchpoint, check whether each algorithm is quantum-resistant, and focus your energy on the gaps. For most people, the biggest win is confirming that their TLS provider already supports hybrid PQC key exchange — and in 2026, most major providers do.
 
-*This post was written with the help of Claude.*
+_This post was written with the help of Claude._

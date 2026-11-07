@@ -57,17 +57,17 @@ pnpm format         # prettier -w . --cache
 
   ```yaml
   ---
-  title: "Your Title"          # max 60 characters (enforced by schema)
-  description: "SEO summary"   # required, shown in post listings
-  publishDate: "YYYY-MM-DD"    # or ISO 8601 date
-  tags: ["tag1", "tag2"]       # array, not space-separated string
-  draft: false                 # omit or set false for published posts
-  pinned: false                # optional, pin to top of posts list
-  coverImage:                  # optional cover image
+  title: "Your Title" # max 60 characters (enforced by schema)
+  description: "SEO summary" # required, shown in post listings
+  publishDate: "YYYY-MM-DD" # or ISO 8601 date
+  tags: ["tag1", "tag2"] # array, not space-separated string
+  draft: false # omit or set false for published posts
+  pinned: false # optional, pin to top of posts list
+  coverImage: # optional cover image
     src: ./image.jpg
     alt: "Image description"
-  ogImage: "/og-image.png"     # optional custom OG image
-  updatedDate: "YYYY-MM-DD"    # optional, for last update tracking
+  ogImage: "/og-image.png" # optional custom OG image
+  updatedDate: "YYYY-MM-DD" # optional, for last update tracking
   ---
   ```
 

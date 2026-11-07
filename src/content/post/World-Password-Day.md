@@ -63,13 +63,13 @@ Also, using a password that is easily cracked or used by others will mean it is 
 
 [Pwned Passwords](https://haveibeenpwned.com/Passwords) lets you see if your password is already known.
 
-As demonstrated well in [this cartoon](https://xkcd.com/936 'XKCD comic password strength'), the password Tr0ub4dor&3 is easier for a computer to guess, than "correct horse battery staple". Also, a passphrase is easier to remember.
+As demonstrated well in [this cartoon](https://xkcd.com/936 "XKCD comic password strength"), the password Tr0ub4dor&3 is easier for a computer to guess, than "correct horse battery staple". Also, a passphrase is easier to remember.
 
-![Password Strength cartoon](https://imgs.xkcd.com/comics/password_strength.png 'Password Strength')
+![Password Strength cartoon](https://imgs.xkcd.com/comics/password_strength.png "Password Strength")
 
 So for passwords stored in your password manager, make them as long as the site will allow and yes include as many upper and lower case letters as well as numbers and symbols.
 
-For passwords you need to remember, like your password manager use a passphrase. The [EFF](https://www.eff.org/dice 'EFF dice') has a wordlist and walks you through how you can use it and dice to generate a passphrase. Or easier still [https://www.useapassphrase.com/](https://www.useapassphrase.com/) helps to generate a passphrase.
+For passwords you need to remember, like your password manager use a passphrase. The [EFF](https://www.eff.org/dice "EFF dice") has a wordlist and walks you through how you can use it and dice to generate a passphrase. Or easier still [https://www.useapassphrase.com/](https://www.useapassphrase.com/) helps to generate a passphrase.
 
 ## Two-factor Authentication
 

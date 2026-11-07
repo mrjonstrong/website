@@ -164,4 +164,4 @@ Until GitHub makes secure defaults the norm rather than the opt-in, the responsi
 - [Semgrep: The TeamPCP Credential Infostealer Chain Attack Reaches Python's LiteLLM](https://semgrep.dev/blog/2026/the-teampcp-credential-infostealer-chain-attack-reaches-pythons-litellm/)
 - [GitGuardian: Trivy's March Supply Chain Attack Shows Where Secret Exposure Hurts Most](https://blog.gitguardian.com/trivys-march-supply-chain-attack-shows-where-secret-exposure-hurts-most/)
 
-*This post was written with the help of Claude.*
+_This post was written with the help of Claude._
