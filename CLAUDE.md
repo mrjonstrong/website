@@ -37,7 +37,7 @@ pnpm audit          # Check for known vulnerabilities
 - **Styling:** Tailwind CSS v4
 - **Package manager:** pnpm 10.29.3 (do not use npm or yarn)
 - **Deployment:** Cloudflare Pages (build command: `pnpm build`, output: `dist/`)
-- **Node version:** 22 (see `.nvmrc`)
+- **Node version:** 26 (see `.nvmrc`)
 
 ## Content
 
@@ -130,4 +130,4 @@ After completing any task:
 - **Preview branches:** Feature branches get automatic preview deployments
 - **Build command:** `pnpm build`
 - **Output directory:** `dist`
-- **Environment variable:** `NODE_VERSION=22`
+- **Environment variable:** `NODE_VERSION=26`

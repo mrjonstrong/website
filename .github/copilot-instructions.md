@@ -178,7 +178,7 @@ Before submitting a PR:
 ## Additional Notes
 
 - **Site URL:** <https://jonathanstrong.org>
-- **Node version:** 22 (see `.nvmrc`)
+- **Node version:** 26 (see `.nvmrc`)
 - **Framework:** Astro 5 (static output)
 - **Styling:** Tailwind CSS v4
 - **Theme:** astro-theme-cactus (customized)
