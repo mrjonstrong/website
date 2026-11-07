@@ -6,3 +6,8 @@ node_modules
 
 pnpm-lock.yaml
 dist
+
+# Formatted by Biome (see biome.json); Prettier would reformat these and
+# make `biome check` fail
+package.json
+*.css
