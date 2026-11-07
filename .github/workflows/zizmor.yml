@@ -34,3 +34,4 @@ jobs:
         with:
           min-severity: medium
           advanced-security: false
+          annotations: true
