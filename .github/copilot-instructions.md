@@ -179,7 +179,7 @@ Before submitting a PR:
 
 - **Site URL:** <https://jonathanstrong.org>
 - **Node version:** 26 (see `.nvmrc`)
-- **Framework:** Astro 5 (static output)
+- **Framework:** Astro 7 (static output)
 - **Styling:** Tailwind CSS v4
 - **Theme:** astro-theme-cactus (customized)
 - **Old Jekyll URLs** redirect to new `/posts/` paths via `public/_redirects`
